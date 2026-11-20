@@ -1,12 +1,14 @@
 export type CharmId =
-  | 'star'
-  | 'mitten'
-  | 'magnifier'
-  | 'bell'
-  | 'snowflake'
-  | 'candle'
+  | 'ghost'
   | 'gift'
-  | 'cookie'
+  | 'hat'
+  | 'yulelog'
+  | 'snowglobe'
+  | 'cocoa'
+  | 'reindeer'
+  | 'gingerbread'
+  | 'candycane'
+  | 'holly'
 
 export type Station = {
   id: string
@@ -43,8 +45,8 @@ export const stations: Station[] = [
     owners: 'Oliwia & Ronja',
     blurb:
       'GhostwrAIter helps teams draft and refine content with AI — explore how consumer health IT uses generative writing support.',
-    charm: 'star',
-    charmLabel: 'Star',
+    charm: 'ghost',
+    charmLabel: 'Christmas ghost',
     challenge: {
       prompt: 'GhostwrAIter is mainly about which kind of support?',
       hint: 'Think writing…',
@@ -63,8 +65,8 @@ export const stations: Station[] = [
     owners: 'Dhiraj & Lakshmi',
     blurb:
       'Elevate MyOrders improves the ordering experience — learn what the team is elevating for customers and colleagues.',
-    charm: 'mitten',
-    charmLabel: 'Mitten',
+    charm: 'gift',
+    charmLabel: 'Gift',
     challenge: {
       prompt: 'What experience is the Elevate MyOrders team improving?',
       hint: 'It is in the name…',
@@ -83,8 +85,8 @@ export const stations: Station[] = [
     owners: 'Luke H',
     blurb:
       'Gap Detective finds holes in processes and data so teams can close them before they become problems.',
-    charm: 'magnifier',
-    charmLabel: 'Magnifier',
+    charm: 'hat',
+    charmLabel: 'Santa hat',
     challenge: {
       prompt: 'What does Gap Detective help teams find?',
       hint: 'Look closely…',
@@ -103,8 +105,8 @@ export const stations: Station[] = [
     owners: 'Rafal',
     blurb:
       'FORGE is building capabilities that help IT forge stronger tools and workflows across initiatives.',
-    charm: 'bell',
-    charmLabel: 'Bell',
+    charm: 'yulelog',
+    charmLabel: 'Yule log',
     challenge: {
       prompt: 'FORGE is focused on helping teams do what with tools and workflows?',
       hint: 'The project name is a verb…',
@@ -123,8 +125,8 @@ export const stations: Station[] = [
     owners: 'Damian',
     blurb:
       'OrbitOne brings work into one orbit — discover how it connects people and platforms.',
-    charm: 'snowflake',
-    charmLabel: 'Snowflake',
+    charm: 'snowglobe',
+    charmLabel: 'Snow globe',
     challenge: {
       prompt: 'OrbitOne aims to bring work into how many orbits?',
       hint: 'Count carefully…',
@@ -143,8 +145,8 @@ export const stations: Station[] = [
     owners: 'Chris Mrosk',
     blurb:
       'LLM optimization makes large language model usage faster, cheaper, and more reliable for real products.',
-    charm: 'candle',
-    charmLabel: 'Candle',
+    charm: 'cocoa',
+    charmLabel: 'Cocoa',
     challenge: {
       prompt: 'This initiative focuses on optimizing what?',
       hint: 'Three letters…',
@@ -163,8 +165,8 @@ export const stations: Station[] = [
     owners: 'Chris Beckers',
     blurb:
       'A cross-divisional IT pilot exploring how teams across Consumer Health collaborate on shared technology bets.',
-    charm: 'gift',
-    charmLabel: 'Gift',
+    charm: 'reindeer',
+    charmLabel: 'Reindeer',
     challenge: {
       prompt: 'This pilot spans across what organizational boundaries?',
       hint: 'More than one…',
@@ -183,8 +185,8 @@ export const stations: Station[] = [
     owners: 'Michael / Maiyuan',
     blurb:
       'Elevit meets Direct-to-Consumer commerce — learn how digital storefronts connect brands with customers.',
-    charm: 'cookie',
-    charmLabel: 'Cookie',
+    charm: 'gingerbread',
+    charmLabel: 'Gingerbread',
     challenge: {
       prompt: 'D2C in this initiative stands for Direct to …?',
       hint: 'Who buys?',

@@ -3,6 +3,7 @@ import { Link, Navigate, useParams } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
 import { CharmIcon } from '../components/CharmIcon'
 import { MediaSlot } from '../components/MediaSlot'
+import { PaintedScene } from '../components/PaintedScene'
 import { useTeam } from '../context/TeamContext'
 import { checkStationAnswer, getStation } from '../data/stations'
 import { unlockCharm } from '../lib/teams'
@@ -56,18 +57,14 @@ export function Station() {
       </Link>
 
       <header className="relative overflow-hidden rounded-3xl border border-gold/25 p-6 md:p-8">
-        <img
-          src="/images/market-square.jpg"
-          alt=""
-          className="pointer-events-none absolute inset-0 h-full w-full object-cover opacity-30"
-        />
-        <div className="pointer-events-none absolute inset-0 bg-[#0a1520]/80" />
+        <PaintedScene src="/images/market-square.jpg" objectPosition="center 35%" className="opacity-45" />
+        <div className="pointer-events-none absolute inset-0 bg-[#0a1520]/78" />
         <div className="relative z-10">
         <p className="text-lg text-gold">Market stall · {station.owners}</p>
         <h1 className="font-display mt-1 text-4xl text-snow md:text-5xl">{station.title}</h1>
         <p className="mt-3 text-snow/85">{station.blurb}</p>
         <div className="mt-4 flex items-center gap-3 text-sm text-snow/70">
-          <CharmIcon charm={station.charm} collected={collected} />
+          <CharmIcon charm={station.charm} collected={collected} size={36} />
           <span>
             Charm: <strong className="text-gold">{station.charmLabel}</strong>
             {collected ? ' — unlocked for your team!' : ' — solve the challenge to unlock'}
@@ -107,7 +104,7 @@ export function Station() {
                 animate={{ rotate: 0, scale: 1 }}
                 transition={{ type: 'spring', stiffness: 200 }}
               >
-                <CharmIcon charm={station.charm} size={56} />
+                <CharmIcon charm={station.charm} size={64} />
               </motion.div>
               <p className="text-xl text-gold">
                 {station.charmLabel} charm unlocked!

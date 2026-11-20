@@ -25,14 +25,14 @@ export function StationOrnament({
         className="group flex w-[7.5rem] flex-col items-center gap-1.5 text-center"
       >
         <span
-          className={`relative flex h-[4.25rem] w-[4.25rem] items-center justify-center rounded-full border-[3px] shadow-xl transition ${
+          className={`relative flex h-[4.75rem] w-[4.75rem] items-center justify-center rounded-full border-[3px] shadow-xl transition ${
             collected
-              ? 'border-gold bg-evergreen shadow-[0_0_18px_rgba(212,180,92,0.45)]'
-              : 'border-[#f5f0e6]/90 bg-[#1a120c]/85 shadow-black/40'
+              ? 'border-gold bg-[#FFF8F0] shadow-[0_0_18px_rgba(212,180,92,0.45)]'
+              : 'border-[#f5f0e6]/90 bg-[#FFF8F0]/85 shadow-black/40'
           }`}
         >
           <span className="absolute -top-2 h-2 w-3 rounded-sm bg-gold" />
-          <CharmIcon charm={station.charm} collected size={34} />
+          <CharmIcon charm={station.charm} collected size={42} />
           {collected && (
             <motion.span
               className="absolute -right-1 -top-1 flex h-5 w-5 items-center justify-center rounded-full bg-holly text-[10px] font-bold text-snow"

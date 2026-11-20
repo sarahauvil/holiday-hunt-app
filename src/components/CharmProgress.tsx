@@ -24,9 +24,9 @@ export function CharmProgress({ team }: { team: Team }) {
               animate={got ? { scale: [1, 1.2, 1] } : { scale: 1 }}
               transition={{ duration: 0.45 }}
               title={got ? `${station.charmLabel} unlocked` : 'Locked'}
-              className="relative flex h-11 w-11 items-center justify-center rounded-full border border-snow/15 bg-evergreen/40"
+              className="relative flex h-12 w-12 items-center justify-center rounded-full border border-snow/20 bg-[#FFF8F0]/9"
             >
-              <CharmIcon charm={station.charm} collected={got} size={26} />
+              <CharmIcon charm={station.charm} collected={got} size={32} />
               {i < stations.length - 1 && (
                 <span className="absolute -right-2 top-1/2 hidden h-px w-2 bg-gold/40 sm:block" />
               )}

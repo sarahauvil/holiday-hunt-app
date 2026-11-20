@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion'
 import type { Team } from '../lib/types'
+import { PaintedScene } from './PaintedScene'
 
 function FireplaceSvg() {
   return (
@@ -146,12 +147,8 @@ export function WinCelebration({
 
   return (
     <div className="relative overflow-hidden rounded-3xl border border-gold/40 p-6 text-center shadow-2xl shadow-gold/10 md:p-10">
-      <img
-        src="/images/market-square.jpg"
-        alt=""
-        className="pointer-events-none absolute inset-0 h-full w-full object-cover opacity-40"
-      />
-      <div className="pointer-events-none absolute inset-0 bg-[#0a1520]/75" />
+      <PaintedScene src="/images/market-square.jpg" objectPosition="center 40%" className="opacity-50" />
+      <div className="pointer-events-none absolute inset-0 bg-[#0a1520]/72" />
       <Confetti />
       <motion.div
         className="relative z-10"

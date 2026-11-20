@@ -6,7 +6,12 @@ import { Snowfall } from './Snowfall'
 export function AppShell({ children }: { children: ReactNode }) {
   const { session, team, demoMode, leaveTeam } = useTeam()
   const { pathname } = useLocation()
-  const isLanding = pathname === '/'
+  const isFullBleed =
+    pathname === '/' ||
+    pathname === '/create' ||
+    pathname === '/join' ||
+    pathname === '/hub' ||
+    pathname === '/leaderboard'
 
   const linkClass = ({ isActive }: { isActive: boolean }) =>
     `text-base transition ${isActive ? 'text-gold' : 'text-snow/80 hover:text-snow'}`
@@ -17,7 +22,7 @@ export function AppShell({ children }: { children: ReactNode }) {
       <div className="relative z-10 flex min-h-screen w-full flex-col">
         <header
           className={`flex w-full flex-wrap items-center justify-between gap-3 px-5 py-4 md:px-10 ${
-            isLanding
+            isFullBleed
               ? 'absolute inset-x-0 top-0 z-30 bg-gradient-to-b from-[#0a1520]/90 to-transparent'
               : 'panel mx-4 mt-4 rounded-2xl md:mx-8'
           }`}
@@ -67,7 +72,7 @@ export function AppShell({ children }: { children: ReactNode }) {
 
         <main
           className={
-            isLanding
+            isFullBleed
               ? 'flex flex-1 flex-col'
               : 'mx-auto w-full max-w-6xl flex-1 px-4 pb-10 pt-4 md:px-8'
           }

@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { stations } from '../data/stations'
 import { subscribeLeaderboard } from '../lib/teams'
 import type { LeaderboardEntry } from '../lib/types'
+import { TeamMascot } from './TeamMascot'
 
 function formatTime(ms: number | null): string {
   if (!ms) return '—'
@@ -24,10 +25,10 @@ export function Leaderboard({ highlightTeamId }: { highlightTeamId?: string }) {
       <table className="w-full text-left text-sm">
         <thead className="bg-evergreen/60 text-gold">
           <tr>
-            <th className="px-4 py-3 font-semibold">#</th>
-            <th className="px-4 py-3 font-semibold">Team</th>
-            <th className="px-4 py-3 font-semibold">Charms</th>
-            <th className="px-4 py-3 font-semibold">Finished</th>
+            <th className="px-3 py-3 font-semibold sm:px-4">#</th>
+            <th className="px-3 py-3 font-semibold sm:px-4">Team</th>
+            <th className="px-3 py-3 font-semibold sm:px-4">Charms</th>
+            <th className="px-3 py-3 font-semibold sm:px-4">Finished</th>
           </tr>
         </thead>
         <tbody>
@@ -44,17 +45,29 @@ export function Leaderboard({ highlightTeamId }: { highlightTeamId?: string }) {
                       : 'bg-snow/5'
                 }
               >
-                <td className="px-4 py-3 text-lg text-gold">{index + 1}</td>
-                <td className="px-4 py-3">
-                  <span className="font-semibold">{entry.name}</span>
-                  {entry.finalUnlocked && (
-                    <span className="ml-2 text-xs text-ember">FIREPLACE lit</span>
-                  )}
+                <td className="px-3 py-3 text-lg text-gold sm:px-4">{index + 1}</td>
+                <td className="px-3 py-3 sm:px-4">
+                  <span className="inline-flex items-center gap-2.5">
+                    <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-gold/35 bg-[#FFF8F0]/95 shadow-sm">
+                      <TeamMascot
+                        teamId={entry.id}
+                        teamCode={entry.code}
+                        teamName={entry.name}
+                        size={30}
+                      />
+                    </span>
+                    <span>
+                      <span className="font-semibold">{entry.name}</span>
+                      {entry.finalUnlocked && (
+                        <span className="ml-2 text-xs text-ember">FIREPLACE lit</span>
+                      )}
+                    </span>
+                  </span>
                 </td>
-                <td className="px-4 py-3">
+                <td className="px-3 py-3 sm:px-4">
                   {entry.charmCount}/{stations.length}
                 </td>
-                <td className="px-4 py-3 text-snow/70">{formatTime(entry.completedAt)}</td>
+                <td className="px-3 py-3 text-snow/70 sm:px-4">{formatTime(entry.completedAt)}</td>
               </tr>
             )
           })}

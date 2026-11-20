@@ -1,3 +1,5 @@
+import { PaintedScene } from './PaintedScene'
+
 const scenes = {
   rhine: '/images/market-rhine.jpg',
   dom: '/images/market-dom.jpg',
@@ -30,12 +32,7 @@ export function SceneBackdrop({
   return (
     <div className={`pointer-events-none absolute inset-0 overflow-hidden ${className}`} aria-hidden>
       <div className="absolute inset-0 bg-[#14281f]" />
-      <img
-        src={scenes[scene]}
-        alt=""
-        className="absolute inset-0 h-full w-full object-cover"
-        style={{ objectPosition }}
-      />
+      <PaintedScene src={scenes[scene]} objectPosition={objectPosition} />
       <div className={`absolute inset-0 bg-gradient-to-br ${dimClass}`} />
     </div>
   )

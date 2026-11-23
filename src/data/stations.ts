@@ -9,6 +9,7 @@ export type CharmId =
   | 'gingerbread'
   | 'candycane'
   | 'holly'
+  | 'keys'
 
 export type Station = {
   id: string
@@ -197,6 +198,26 @@ export const stations: Station[] = [
       pdf: '/stations/elevit/slides.pdf',
       docx: '/stations/elevit/notes.docx',
       pptx: '/stations/elevit/deck.pptx',
+    },
+  },
+  {
+    id: 'keys',
+    title: 'Keys',
+    owners: 'Diana',
+    blurb:
+      'Keys unlocks access, identity, and secure pathways so teams can open the right doors without losing the keys to the kingdom.',
+    charm: 'keys',
+    charmLabel: 'Keys',
+    challenge: {
+      prompt: 'What does the Keys stall help teams unlock?',
+      hint: 'Think access…',
+      answers: ['access', 'keys', 'identity', 'secure access', 'doors', 'pathways'],
+    },
+    assets: {
+      video: '/stations/keys/video.mp4',
+      pdf: '/stations/keys/slides.pdf',
+      docx: '/stations/keys/notes.docx',
+      pptx: '/stations/keys/deck.pptx',
     },
   },
 ]

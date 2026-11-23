@@ -376,5 +376,23 @@ export function CharmIcon({
         </svg>
       )
     }
+    case 'keys':
+      return (
+        <svg {...common}>
+          {/* Crossed brass keys */}
+          <g transform="rotate(-28 24 24)">
+            <circle cx="16" cy="14" r="7" fill={gold} stroke={ink} strokeWidth="2.6" />
+            <circle cx="16" cy="14" r="3.2" fill={cream} stroke={ink} strokeWidth="1.8" />
+            <rect x="14.2" y="20" width="3.6" height="18" rx="1.5" fill={gold} stroke={ink} strokeWidth="2.2" />
+            <path d="M18 32h5M18 36h4" stroke={ink} strokeWidth="2.2" strokeLinecap="round" />
+          </g>
+          <g transform="rotate(32 24 24)">
+            <circle cx="32" cy="14" r="7" fill="#D4A04A" stroke={ink} strokeWidth="2.6" />
+            <circle cx="32" cy="14" r="3.2" fill={cream} stroke={ink} strokeWidth="1.8" />
+            <rect x="30.2" y="20" width="3.6" height="18" rx="1.5" fill="#D4A04A" stroke={ink} strokeWidth="2.2" />
+            <path d="M34 32h5M34 36h4" stroke={ink} strokeWidth="2.2" strokeLinecap="round" />
+          </g>
+        </svg>
+      )
   }
 }

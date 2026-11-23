@@ -64,4 +64,5 @@ export const ornamentLayout: Record<string, { left: string; top: string }> = {
   llm: { left: '28%', top: '58%' },
   pilot: { left: '58%', top: '55%' },
   elevit: { left: '42%', top: '72%' },
+  keys: { left: '88%', top: '72%' },
 }

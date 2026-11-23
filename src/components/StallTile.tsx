@@ -11,6 +11,7 @@ export type StallVariantId =
   | 'stone'
   | 'slateSnow'
   | 'gingerbread'
+  | 'brassKeys'
 
 export const stallVariantByStation: Record<string, StallVariantId> = {
   ghostwriter: 'lights',
@@ -21,6 +22,7 @@ export const stallVariantByStation: Record<string, StallVariantId> = {
   llm: 'redShingles',
   pilot: 'slateSnow',
   elevit: 'gingerbread',
+  keys: 'brassKeys',
 }
 
 type StallPalette = {
@@ -85,6 +87,13 @@ const palettes: Record<StallVariantId, StallPalette> = {
     border: 'rgba(245,230,200,0.45)',
     borderUnlocked: 'rgba(245,220,170,0.85)',
     accent: '#f5e6c8',
+  },
+  brassKeys: {
+    bodyFrom: '#3a2a12',
+    bodyTo: '#1a1408',
+    border: 'rgba(212,180,92,0.55)',
+    borderUnlocked: 'rgba(240,195,60,0.9)',
+    accent: '#d4b45c',
   },
 }
 
@@ -274,6 +283,18 @@ function StallRoof({ variant }: { variant: StallVariantId }) {
           <path d="M100 4 L100 12" stroke="#f5e6c8" strokeWidth="2.5" />
         </svg>
       )
+    case 'brassKeys':
+      return (
+        <svg viewBox="0 0 200 52" className="block h-auto w-full" preserveAspectRatio="none">
+          <path d="M6 48 L100 6 L194 48 Z" fill="#8a6a28" stroke="#f0c33c" strokeWidth="2.4" strokeLinejoin="round" />
+          <path d="M22 46 L100 14 L178 46 Z" fill="#b8923a" />
+          {/* Keyhole ornament at peak */}
+          <circle cx="100" cy="24" r="7" fill="#1a1408" stroke="#f0c33c" strokeWidth="1.8" />
+          <circle cx="100" cy="22" r="2.8" fill="#f0c33c" />
+          <path d="M100 24.5 v7" stroke="#f0c33c" strokeWidth="2.4" strokeLinecap="round" />
+          <path d="M100 6 L100 14" stroke="#f0c33c" strokeWidth="2" strokeLinecap="round" />
+        </svg>
+      )
   }
 }
 
@@ -304,6 +325,10 @@ function StallAwning({ variant }: { variant: StallVariantId }) {
     gingerbread: {
       background: 'repeating-linear-gradient(90deg, #c41e1e 0 10px, #f5e6c8 10px 20px)',
       border: 'rgba(245,230,200,0.5)',
+    },
+    brassKeys: {
+      background: 'repeating-linear-gradient(90deg, #8a6a28 0 12px, #f0c33c 12px 24px)',
+      border: 'rgba(240,195,60,0.55)',
     },
   }
 
@@ -431,6 +456,17 @@ function StallBodyDecor({ variant, unlocked }: { variant: StallVariantId; unlock
           }}
         />
       )
+    case 'brassKeys':
+      return (
+        <div
+          className="pointer-events-none absolute inset-0 rounded-b-xl opacity-[0.14]"
+          aria-hidden
+          style={{
+            backgroundImage:
+              'radial-gradient(circle at 20% 30%, rgba(240,195,60,0.4), transparent 40%), radial-gradient(circle at 80% 70%, rgba(212,180,92,0.28), transparent 45%)',
+          }}
+        />
+      )
     default:
       return null
   }
@@ -472,6 +508,7 @@ type ShopkeeperId =
   | 'elf'
   | 'reindeer'
   | 'gingerbread'
+  | 'diana'
 
 export const shopkeeperByStation: Record<string, ShopkeeperId> = {
   ghostwriter: 'ghost',
@@ -482,6 +519,7 @@ export const shopkeeperByStation: Record<string, ShopkeeperId> = {
   llm: 'elf',
   pilot: 'reindeer',
   elevit: 'gingerbread',
+  keys: 'diana',
 }
 
 /** Shared stall counter — shopkeepers lean their arms across this. */
@@ -837,6 +875,53 @@ function ShopkeeperSvg({ id }: { id: ShopkeeperId }) {
           <circle cx="42" cy="26" r="2" fill={shopRed} stroke={shopInk} strokeWidth="1.3" />
           <circle cx="42" cy="31.5" r="2" fill={shopGreen} stroke={shopInk} strokeWidth="1.3" />
           <path d="M34 24h16" stroke={shopCream} strokeWidth="2" strokeLinecap="round" />
+        </svg>
+      )
+    case 'diana':
+      return (
+        <svg {...common}>
+          <StallCounter />
+          <RestingArms />
+          {/* Hair */}
+          <path
+            d="M30 8c0-5 5-8 12-8s12 3 12 8v10c-3-2-7-3-12-3s-9 1-12 3V8z"
+            fill="#3D2817"
+            stroke={shopInk}
+            strokeWidth="2"
+            strokeLinejoin="round"
+          />
+          <circle cx="42" cy="16" r="8" fill={shopSkin} stroke={shopInk} strokeWidth="2" />
+          <ellipse cx="39" cy="15.5" rx="1.3" ry="1.6" fill={shopInk} />
+          <ellipse cx="45" cy="15.5" rx="1.3" ry="1.6" fill={shopInk} />
+          <path d="M39.5 20c1.2 1.2 3.8 1.2 5 0" stroke={shopInk} strokeWidth="1.6" strokeLinecap="round" />
+          <ellipse cx="36" cy="18.5" rx="1.7" ry="1" fill={shopPink} opacity="0.9" />
+          <ellipse cx="48" cy="18.5" rx="1.7" ry="1" fill={shopPink} opacity="0.9" />
+          {/* Coat */}
+          <path
+            d="M32 26c2-3 6-5 10-5s8 2 10 5v18H32V26z"
+            fill="#1E3A6E"
+            stroke={shopInk}
+            strokeWidth="2"
+            strokeLinejoin="round"
+          />
+          {/* Name badge */}
+          <rect x="36" y="30" width="12" height="7" rx="1.2" fill={shopCream} stroke={shopInk} strokeWidth="1.4" />
+          <text
+            x="42"
+            y="35.2"
+            textAnchor="middle"
+            fontSize="4.2"
+            fontFamily="system-ui, sans-serif"
+            fontWeight="700"
+            fill={shopInk}
+          >
+            Diana
+          </text>
+          {/* Brass key on counter */}
+          <circle cx="62" cy="40" r="3.2" fill={shopGold} stroke={shopInk} strokeWidth="1.4" />
+          <circle cx="62" cy="40" r="1.3" fill={shopCream} />
+          <rect x="61.2" y="42.5" width="1.8" height="7" rx="0.6" fill={shopGold} stroke={shopInk} strokeWidth="1.1" />
+          <path d="M63 46h3M63 48.5h2.5" stroke={shopInk} strokeWidth="1.1" strokeLinecap="round" />
         </svg>
       )
   }

@@ -452,6 +452,418 @@ function textClasses(variant: StallVariantId): { title: string; owners: string; 
   }
 }
 
+/** Sticker-style shopkeepers — one unique keeper per station, shown in the stall window. */
+const shopInk = '#1B2A4A'
+const shopCream = '#FFF8F0'
+const shopRed = '#E23B3B'
+const shopGreen = '#2F8F4E'
+const shopGold = '#F0C33C'
+const shopPink = '#F5A8A8'
+const shopSkin = '#F2C9A8'
+const shopBrown = '#8B5A2B'
+const shopGinger = '#C48A4A'
+
+type ShopkeeperId =
+  | 'ghost'
+  | 'mrsClaus'
+  | 'bavarian'
+  | 'nutcracker'
+  | 'angel'
+  | 'elf'
+  | 'reindeer'
+  | 'gingerbread'
+
+export const shopkeeperByStation: Record<string, ShopkeeperId> = {
+  ghostwriter: 'ghost',
+  myorders: 'mrsClaus',
+  gap: 'bavarian',
+  forge: 'nutcracker',
+  orbit: 'angel',
+  llm: 'elf',
+  pilot: 'reindeer',
+  elevit: 'gingerbread',
+}
+
+/** Shared stall counter — shopkeepers lean their arms across this. */
+function StallCounter() {
+  return (
+    <>
+      <rect x="4" y="44" width="76" height="8" rx="1.5" fill="#6B4423" stroke={shopInk} strokeWidth="1.8" />
+      <rect x="4" y="44" width="76" height="2.5" fill="#8B5A2B" opacity="0.85" />
+      <path d="M6 46.5h72" stroke="#3D2410" strokeWidth="0.8" opacity="0.35" />
+    </>
+  )
+}
+
+/** Arms resting across the counter; right arm waves on stall hover (`.group:hover`). */
+function RestingArms({ fill = shopSkin }: { fill?: string }) {
+  return (
+    <>
+      {/* Left arm stays on the table */}
+      <path
+        d="M30 34 C22 34 14 36 8 42 L10 45 C16 40 24 38 32 38 Z"
+        fill={fill}
+        stroke={shopInk}
+        strokeWidth="2"
+        strokeLinejoin="round"
+      />
+      <ellipse cx="9" cy="44" rx="4.5" ry="2.8" fill={fill} stroke={shopInk} strokeWidth="1.7" />
+      {/* Right arm — waves on hover */}
+      <g className="shopkeeper-wave-arm">
+        <path
+          d="M54 34 C62 34 70 36 76 42 L74 45 C68 40 60 38 52 38 Z"
+          fill={fill}
+          stroke={shopInk}
+          strokeWidth="2"
+          strokeLinejoin="round"
+        />
+        <ellipse cx="75" cy="44" rx="4.5" ry="2.8" fill={fill} stroke={shopInk} strokeWidth="1.7" />
+      </g>
+    </>
+  )
+}
+
+function ShopkeeperSvg({ id }: { id: ShopkeeperId }) {
+  // ~30% larger than prior h-11/h-12; wider canvas so arms span the stall table
+  const common = {
+    viewBox: '0 0 84 54',
+    className: 'shopkeeper-svg h-[3.6rem] w-auto max-w-full overflow-visible sm:h-[4rem]',
+    'aria-hidden': true as const,
+  }
+
+  switch (id) {
+    case 'ghost':
+      return (
+        <svg {...common}>
+          <StallCounter />
+          <RestingArms fill={shopCream} />
+          <path
+            d="M30 22c0-8 5-14 12-14s12 6 12 14v18c0 1-.7 1.3-1.3.7L49 36l-3 4c-.5.7-1.4.7-1.9 0L42 36l-2.1 4c-.5.7-1.4.7-1.9 0L36 36l-3.7 4.7c-.6.6-1.3.3-1.3-.7V22z"
+            fill={shopCream}
+            stroke={shopInk}
+            strokeWidth="2.2"
+            strokeLinejoin="round"
+          />
+          <ellipse cx="38" cy="24" rx="1.8" ry="2.2" fill={shopInk} />
+          <ellipse cx="46" cy="24" rx="1.8" ry="2.2" fill={shopInk} />
+          <path d="M39 29c1.2 1.6 3.8 1.6 5 0" stroke={shopInk} strokeWidth="1.8" strokeLinecap="round" />
+          <ellipse cx="35.5" cy="27.5" rx="2" ry="1.2" fill={shopPink} opacity="0.9" />
+          <ellipse cx="48.5" cy="27.5" rx="2" ry="1.2" fill={shopPink} opacity="0.9" />
+          <path
+            d="M32 16c1.5-8 7-11 14-10 1 4-.5 9-2.5 12"
+            fill={shopRed}
+            stroke={shopInk}
+            strokeWidth="2"
+            strokeLinejoin="round"
+          />
+          <circle cx="47" cy="9" r="3.2" fill={shopCream} stroke={shopInk} strokeWidth="1.8" />
+          <path
+            d="M29 17c0-2.5 4-4.5 13-4.5s13 2 13 4.5v2c0 1.2-4 2.5-13 2.5S29 20.2 29 19v-2z"
+            fill={shopCream}
+            stroke={shopInk}
+            strokeWidth="2"
+            strokeLinejoin="round"
+          />
+        </svg>
+      )
+    case 'mrsClaus':
+      return (
+        <svg {...common}>
+          <StallCounter />
+          <RestingArms />
+          <circle cx="42" cy="12" r="9" fill="#E8E4DC" stroke={shopInk} strokeWidth="2" />
+          <circle cx="42" cy="6" r="4.5" fill="#E8E4DC" stroke={shopInk} strokeWidth="1.8" />
+          <circle cx="42" cy="18" r="8" fill={shopSkin} stroke={shopInk} strokeWidth="2" />
+          <ellipse cx="38.5" cy="17.5" rx="1.3" ry="1.6" fill={shopInk} />
+          <ellipse cx="45.5" cy="17.5" rx="1.3" ry="1.6" fill={shopInk} />
+          <path d="M39.5 22c1 1.2 3 1.2 4 0" stroke={shopInk} strokeWidth="1.6" strokeLinecap="round" />
+          <ellipse cx="36" cy="20.5" rx="1.8" ry="1.1" fill={shopPink} opacity="0.9" />
+          <ellipse cx="48" cy="20.5" rx="1.8" ry="1.1" fill={shopPink} opacity="0.9" />
+          <circle cx="38.5" cy="17.5" r="3" fill="none" stroke={shopInk} strokeWidth="1.4" />
+          <circle cx="45.5" cy="17.5" r="3" fill="none" stroke={shopInk} strokeWidth="1.4" />
+          <path d="M41.5 17.5h1" stroke={shopInk} strokeWidth="1.4" />
+          <path
+            d="M32 28c2-4 6-6 10-6s8 2 10 6v16H32V28z"
+            fill={shopRed}
+            stroke={shopInk}
+            strokeWidth="2"
+            strokeLinejoin="round"
+          />
+          <path
+            d="M36 30h12v12H36z"
+            fill={shopCream}
+            stroke={shopInk}
+            strokeWidth="1.6"
+            strokeLinejoin="round"
+          />
+          <path d="M42 30v12" stroke={shopRed} strokeWidth="1.6" />
+          <circle cx="42" cy="36" r="2" fill={shopGold} stroke={shopInk} strokeWidth="1.2" />
+        </svg>
+      )
+    case 'bavarian':
+      return (
+        <svg {...common}>
+          <StallCounter />
+          <RestingArms />
+          <ellipse cx="42" cy="10" rx="11" ry="4" fill="#2A3A5C" stroke={shopInk} strokeWidth="2" />
+          <path
+            d="M31 10c0-6 5-10 11-10s11 4 11 10"
+            fill="#3A4A6C"
+            stroke={shopInk}
+            strokeWidth="2"
+            strokeLinejoin="round"
+          />
+          <circle cx="50" cy="8" r="2.2" fill={shopGold} stroke={shopInk} strokeWidth="1.3" />
+          <circle cx="42" cy="18" r="7.5" fill={shopSkin} stroke={shopInk} strokeWidth="2" />
+          <ellipse cx="39" cy="17.5" rx="1.3" ry="1.6" fill={shopInk} />
+          <ellipse cx="45" cy="17.5" rx="1.3" ry="1.6" fill={shopInk} />
+          <path d="M39.5 22c1.2 1.3 3.8 1.3 5 0" stroke={shopInk} strokeWidth="1.6" strokeLinecap="round" />
+          <ellipse cx="36" cy="20" rx="1.7" ry="1" fill={shopPink} opacity="0.85" />
+          <ellipse cx="48" cy="20" rx="1.7" ry="1" fill={shopPink} opacity="0.85" />
+          <path
+            d="M36 24c2-2 5-2 6-1 1-1 4-1 6 1"
+            fill="none"
+            stroke={shopInk}
+            strokeWidth="1.8"
+            strokeLinecap="round"
+          />
+          <path
+            d="M32 28c2-3.5 6-5.5 10-5.5s8 2 10 5.5v16H32V28z"
+            fill="#5C3D1E"
+            stroke={shopInk}
+            strokeWidth="2"
+            strokeLinejoin="round"
+          />
+          <path d="M36 30h12v4H36z" fill="#1E3A6E" stroke={shopInk} strokeWidth="1.4" />
+          <path d="M42 34v10" stroke={shopGold} strokeWidth="2" strokeLinecap="round" />
+          <circle cx="42" cy="36" r="1.5" fill={shopGold} stroke={shopInk} strokeWidth="1" />
+        </svg>
+      )
+    case 'nutcracker':
+      return (
+        <svg {...common}>
+          <StallCounter />
+          <RestingArms fill="#1E3A6E" />
+          <rect x="34" y="1" width="16" height="11" rx="1.5" fill={shopRed} stroke={shopInk} strokeWidth="2" />
+          <rect x="32" y="10.5" width="20" height="3.5" fill={shopGold} stroke={shopInk} strokeWidth="1.6" />
+          <rect x="34" y="14" width="16" height="13" rx="2" fill={shopSkin} stroke={shopInk} strokeWidth="2" />
+          <rect x="37" y="18" width="4" height="3" rx="0.5" fill={shopInk} />
+          <rect x="43" y="18" width="4" height="3" rx="0.5" fill={shopInk} />
+          <rect x="38" y="23" width="8" height="2.5" rx="0.5" fill={shopCream} stroke={shopInk} strokeWidth="1.2" />
+          <path d="M37 26h10" stroke={shopInk} strokeWidth="2" strokeLinecap="round" />
+          <path
+            d="M32 28h20v16c0 1-1 2-2 2H34c-1 0-2-1-2-2V28z"
+            fill="#1E3A6E"
+            stroke={shopInk}
+            strokeWidth="2"
+            strokeLinejoin="round"
+          />
+          <rect x="38" y="30" width="8" height="10" rx="1" fill={shopGold} stroke={shopInk} strokeWidth="1.4" />
+          <path d="M42 30v10" stroke={shopInk} strokeWidth="1.2" />
+        </svg>
+      )
+    case 'angel':
+      return (
+        <svg {...common}>
+          <StallCounter />
+          <ellipse
+            cx="22"
+            cy="28"
+            rx="9"
+            ry="13"
+            fill={shopCream}
+            stroke={shopInk}
+            strokeWidth="2"
+            transform="rotate(-18 22 28)"
+          />
+          <ellipse
+            cx="62"
+            cy="28"
+            rx="9"
+            ry="13"
+            fill={shopCream}
+            stroke={shopInk}
+            strokeWidth="2"
+            transform="rotate(18 62 28)"
+          />
+          <RestingArms />
+          <ellipse cx="42" cy="6" rx="8" ry="3" fill="none" stroke={shopGold} strokeWidth="2.2" />
+          <circle cx="42" cy="14" r="8" fill="#F5D76E" stroke={shopInk} strokeWidth="2" />
+          <circle cx="42" cy="16" r="7" fill={shopSkin} stroke={shopInk} strokeWidth="2" />
+          <ellipse cx="39" cy="15.5" rx="1.2" ry="1.5" fill={shopInk} />
+          <ellipse cx="45" cy="15.5" rx="1.2" ry="1.5" fill={shopInk} />
+          <path d="M39.5 20c1.2 1.2 3.8 1.2 5 0" stroke={shopInk} strokeWidth="1.5" strokeLinecap="round" />
+          <ellipse cx="36.5" cy="18.5" rx="1.6" ry="1" fill={shopPink} opacity="0.85" />
+          <ellipse cx="47.5" cy="18.5" rx="1.6" ry="1" fill={shopPink} opacity="0.85" />
+          <path
+            d="M32 26c2-3 6-5 10-5s8 2 10 5v18H32V26z"
+            fill="#B8D9F0"
+            stroke={shopInk}
+            strokeWidth="2"
+            strokeLinejoin="round"
+          />
+          <path d="M42 26v18" stroke={shopGold} strokeWidth="1.8" opacity="0.7" />
+        </svg>
+      )
+    case 'elf':
+      return (
+        <svg {...common}>
+          <StallCounter />
+          <RestingArms />
+          <path
+            d="M42 1 L54 20 L30 20 Z"
+            fill={shopGreen}
+            stroke={shopInk}
+            strokeWidth="2"
+            strokeLinejoin="round"
+          />
+          <circle cx="42" cy="3" r="2.5" fill={shopRed} stroke={shopInk} strokeWidth="1.5" />
+          <path d="M30 20h24" stroke={shopCream} strokeWidth="3" strokeLinecap="round" />
+          <path
+            d="M29 24 L24 20 L29 28 Z"
+            fill={shopSkin}
+            stroke={shopInk}
+            strokeWidth="1.6"
+            strokeLinejoin="round"
+          />
+          <path
+            d="M55 24 L60 20 L55 28 Z"
+            fill={shopSkin}
+            stroke={shopInk}
+            strokeWidth="1.6"
+            strokeLinejoin="round"
+          />
+          <circle cx="42" cy="24" r="8" fill={shopSkin} stroke={shopInk} strokeWidth="2" />
+          <ellipse cx="39" cy="23" rx="1.3" ry="1.6" fill={shopInk} />
+          <ellipse cx="45" cy="23" rx="1.3" ry="1.6" fill={shopInk} />
+          <path d="M39.5 28c1.2 1.3 3.8 1.3 5 0" stroke={shopInk} strokeWidth="1.6" strokeLinecap="round" />
+          <ellipse cx="36" cy="26" rx="1.7" ry="1" fill={shopPink} opacity="0.9" />
+          <ellipse cx="48" cy="26" rx="1.7" ry="1" fill={shopPink} opacity="0.9" />
+          <path
+            d="M32 34c1.5-3 5-5 10-5s8.5 2 10 5v10H32V34z"
+            fill={shopRed}
+            stroke={shopInk}
+            strokeWidth="2"
+            strokeLinejoin="round"
+          />
+          {/* Cocoa mug on the counter */}
+          <rect x="58" y="36" width="8" height="8" rx="1.2" fill={shopCream} stroke={shopInk} strokeWidth="1.5" />
+          <ellipse cx="62" cy="36" rx="4" ry="1.8" fill={shopBrown} stroke={shopInk} strokeWidth="1.2" />
+          <path d="M66 38h3v4h-3" fill="none" stroke={shopInk} strokeWidth="1.5" strokeLinecap="round" />
+        </svg>
+      )
+    case 'reindeer':
+      return (
+        <svg {...common}>
+          <StallCounter />
+          <RestingArms fill={shopGinger} />
+          <path
+            d="M32 12c-4-8-8-6-6-2m6 2c2-6 0-10-4-8"
+            fill="none"
+            stroke={shopBrown}
+            strokeWidth="2.2"
+            strokeLinecap="round"
+          />
+          <path
+            d="M52 12c4-8 8-6 6-2m-6 2c-2-6 0-10 4-8"
+            fill="none"
+            stroke={shopBrown}
+            strokeWidth="2.2"
+            strokeLinecap="round"
+          />
+          <ellipse cx="30" cy="18" rx="4" ry="5" fill={shopGinger} stroke={shopInk} strokeWidth="1.8" />
+          <ellipse cx="54" cy="18" rx="4" ry="5" fill={shopGinger} stroke={shopInk} strokeWidth="1.8" />
+          <ellipse cx="42" cy="22" rx="11" ry="10" fill={shopGinger} stroke={shopInk} strokeWidth="2" />
+          <ellipse cx="38" cy="20" rx="1.5" ry="1.8" fill={shopInk} />
+          <ellipse cx="46" cy="20" rx="1.5" ry="1.8" fill={shopInk} />
+          <ellipse cx="42" cy="26" rx="5" ry="4" fill="#E8C9A0" stroke={shopInk} strokeWidth="1.6" />
+          <circle cx="42" cy="25" r="2.2" fill={shopRed} stroke={shopInk} strokeWidth="1.4" />
+          <path d="M40 28c1 .8 3 .8 4 0" stroke={shopInk} strokeWidth="1.3" strokeLinecap="round" />
+          <path
+            d="M31 34c2-2.5 6-4 11-4s9 1.5 11 4v10H31V34z"
+            fill={shopGreen}
+            stroke={shopInk}
+            strokeWidth="2"
+            strokeLinejoin="round"
+          />
+          <path d="M31 36h22" stroke={shopRed} strokeWidth="3" strokeLinecap="round" />
+        </svg>
+      )
+    case 'gingerbread':
+      return (
+        <svg {...common}>
+          <StallCounter />
+          {/* Left arm on counter */}
+          <path
+            d="M42 30 C28 30 16 34 8 42 L10 45 C18 38 30 36 42 36 Z"
+            fill={shopGinger}
+            stroke={shopInk}
+            strokeWidth="2.2"
+            strokeLinejoin="round"
+          />
+          <ellipse cx="9" cy="44" rx="5" ry="3" fill={shopGinger} stroke={shopInk} strokeWidth="2" />
+          <path d="M12 42c8-4 20-6 30-6" stroke={shopCream} strokeWidth="2" strokeLinecap="round" fill="none" />
+          {/* Right arm waves on hover */}
+          <g className="shopkeeper-wave-arm">
+            <path
+              d="M42 30 C56 30 68 34 76 42 L74 45 C66 38 54 36 42 36 Z"
+              fill={shopGinger}
+              stroke={shopInk}
+              strokeWidth="2.2"
+              strokeLinejoin="round"
+            />
+            <ellipse cx="75" cy="44" rx="5" ry="3" fill={shopGinger} stroke={shopInk} strokeWidth="2" />
+            <path d="M42 36c10 0 22 2 30 6" stroke={shopCream} strokeWidth="2" strokeLinecap="round" fill="none" />
+          </g>
+          <circle cx="42" cy="12" r="9" fill={shopGinger} stroke={shopInk} strokeWidth="2.2" />
+          <circle cx="38.5" cy="10.5" r="1.6" fill={shopInk} />
+          <circle cx="45.5" cy="10.5" r="1.6" fill={shopInk} />
+          <path
+            d="M37.5 15c1.5 2 5.5 2 7 0"
+            fill="none"
+            stroke={shopCream}
+            strokeWidth="2"
+            strokeLinecap="round"
+          />
+          <circle cx="35" cy="13" r="1.5" fill={shopPink} opacity="0.9" />
+          <circle cx="49" cy="13" r="1.5" fill={shopPink} opacity="0.9" />
+          <path
+            d="M32 24c0-3 4.5-5 10-5s10 2 10 5v12c0 1-1 2-2 2H34c-1 0-2-1-2-2V24z"
+            fill={shopGinger}
+            stroke={shopInk}
+            strokeWidth="2.2"
+            strokeLinejoin="round"
+          />
+          <circle cx="42" cy="26" r="2" fill={shopRed} stroke={shopInk} strokeWidth="1.3" />
+          <circle cx="42" cy="31.5" r="2" fill={shopGreen} stroke={shopInk} strokeWidth="1.3" />
+          <path d="M34 24h16" stroke={shopCream} strokeWidth="2" strokeLinecap="round" />
+        </svg>
+      )
+  }
+}
+
+function StallShopkeeper({ stationId, completed }: { stationId: string; completed: boolean }) {
+  const id = shopkeeperByStation[stationId] ?? 'bavarian'
+  return (
+    <div
+      className={`relative z-[1] -mb-0.5 flex justify-center px-1 pt-0.5 transition ${
+        completed ? 'opacity-90 brightness-[0.95] saturate-[0.9]' : ''
+      }`}
+      aria-hidden
+    >
+      {/* Soft stall-window glow behind the keeper */}
+      <div
+        className="pointer-events-none absolute inset-x-[8%] top-1 bottom-0 rounded-t-full opacity-40"
+        style={{
+          background:
+            'radial-gradient(ellipse at 50% 80%, rgba(245,215,110,0.45) 0%, transparent 70%)',
+        }}
+      />
+      <ShopkeeperSvg id={id} />
+    </div>
+  )
+}
+
 /** Clickable Weihnachtsmarkt stall card for the hub station grid.
  *  `unlocked` = team finished the stall challenge (`team.charms[stationId]`). */
 export function StallTile({ station, unlocked }: { station: Station; unlocked: boolean }) {
@@ -519,6 +931,9 @@ export function StallTile({ station, unlocked }: { station: Station; unlocked: b
             />
           </>
         )}
+
+        {/* Shopkeeper stands in the stall window — under roof/awning, above title */}
+        <StallShopkeeper stationId={station.id} completed={completed} />
 
         <p className={`relative font-display text-xl leading-tight transition ${text.title}`}>
           {station.title}

@@ -22,3 +22,7 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Local deploy artifacts
+holiday-hunt-deploy.zip
+public/screenshots/

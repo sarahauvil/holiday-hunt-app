@@ -102,3 +102,83 @@ code {
   mix-blend-mode: multiply;
   opacity: 0.65;
 }
+
+/* Cozy hearth glow on a wrapper — never put CSS filter on the SVG root
+   (that + internal SVG filters can blank the graphic in Safari/Chromium). */
+.fireplace-glow {
+  filter:
+    drop-shadow(0 10px 22px rgba(224, 122, 61, 0.32))
+    drop-shadow(0 0 18px rgba(255, 176, 71, 0.12));
+  animation: hearth-glow 3.2s ease-in-out infinite;
+}
+
+.fireplace-svg {
+  overflow: visible;
+  /* Ensure the SVG always lays out with a real box */
+  min-height: 12rem;
+}
+
+@keyframes hearth-glow {
+  0%,
+  100% {
+    filter:
+      drop-shadow(0 10px 20px rgba(224, 122, 61, 0.26))
+      drop-shadow(0 0 14px rgba(255, 176, 71, 0.1));
+  }
+  35% {
+    filter:
+      drop-shadow(0 14px 36px rgba(255, 176, 71, 0.48))
+      drop-shadow(0 0 28px rgba(224, 122, 61, 0.28));
+  }
+  65% {
+    filter:
+      drop-shadow(0 11px 26px rgba(224, 122, 61, 0.34))
+      drop-shadow(0 0 18px rgba(255, 176, 71, 0.16));
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fireplace-glow {
+    animation: none;
+  }
+}
+
+/* Hub stall shopkeepers — right arm waves when the stall is hovered */
+.shopkeeper-svg {
+  overflow: visible;
+}
+
+.shopkeeper-wave-arm {
+  transform-box: view-box;
+  transform-origin: 54px 34px;
+  transition: transform 0.2s ease-out;
+}
+
+.group:hover .shopkeeper-wave-arm,
+.group:focus-visible .shopkeeper-wave-arm {
+  animation: shopkeeper-wave 0.55s ease-in-out infinite;
+}
+
+@keyframes shopkeeper-wave {
+  0%,
+  100% {
+    transform: rotate(-8deg);
+  }
+  25% {
+    transform: rotate(-42deg);
+  }
+  50% {
+    transform: rotate(-18deg);
+  }
+  75% {
+    transform: rotate(-48deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .group:hover .shopkeeper-wave-arm,
+  .group:focus-visible .shopkeeper-wave-arm {
+    animation: none;
+    transform: rotate(-28deg);
+  }
+}

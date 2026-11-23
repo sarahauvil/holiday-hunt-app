@@ -1,7 +1,8 @@
 import { useEffect, useState, type FormEvent } from 'react'
+import { motion } from 'framer-motion'
 import { Link, Navigate } from 'react-router-dom'
 import { CharmProgress } from '../components/CharmProgress'
-import { MarketFrame } from '../components/MarketFrame'
+import { PaintedScene } from '../components/PaintedScene'
 import { WinCelebration } from '../components/WinCelebration'
 import { useTeam } from '../context/TeamContext'
 import { checkFinalPassphrase, FINAL_RIDDLE } from '../data/stations'
@@ -48,23 +49,48 @@ export function Final() {
 
   if (team.finalUnlocked) {
     return (
-      <section className="space-y-6">
-        <WinCelebration team={team} rank={rank} />
-        <div className="text-center">
-          <Link to="/leaderboard" className="text-gold hover:underline">
-            See the live leaderboard
-          </Link>
+      <section className="relative flex min-h-screen w-full flex-1 flex-col items-center justify-center overflow-hidden px-5 py-24 md:px-10">
+        <div className="pointer-events-none absolute inset-0" aria-hidden>
+          <div className="absolute inset-0 bg-[#1a100c]" />
+          <PaintedScene src="/images/leaderboard-santa.jpg" objectPosition="left center" />
+          <div className="absolute inset-0 bg-[#0a1520]/55" />
+          <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-[#0a1520] to-transparent" />
+          <div className="absolute inset-x-0 top-0 h-28 bg-gradient-to-b from-[#0a1520]/80 to-transparent" />
+        </div>
+        <div className="relative z-10 w-full max-w-3xl space-y-6">
+          <WinCelebration team={team} rank={rank} />
+          <div className="text-center">
+            <Link to="/leaderboard" className="text-gold hover:underline">
+              See the live leaderboard
+            </Link>
+          </div>
         </div>
       </section>
     )
   }
 
   return (
-    <MarketFrame scene="dom" objectPosition="center 30%">
-      <div className="w-full max-w-xl rounded-3xl border border-gold/30 bg-[#0a1520]/90 p-8 backdrop-blur-md">
-        <p className="text-lg text-gold">Final challenge · Köln</p>
-        <h1 className="font-display mt-2 text-4xl text-snow">Warm up the hearth</h1>
-        <p className="mt-3 text-snow/80">
+    <section className="relative flex min-h-screen w-full flex-1 items-end overflow-hidden md:items-center md:justify-end">
+      <div className="pointer-events-none absolute inset-0" aria-hidden>
+        <div className="absolute inset-0 bg-[#1a100c]" />
+        <PaintedScene src="/images/leaderboard-santa.jpg" objectPosition="left center" />
+        {/* Soften right for the panel; leave lit fireplace & stockings open on the left */}
+        <div className="absolute inset-y-0 right-0 w-full bg-gradient-to-l from-[#0a1520]/93 via-[#0a1520]/45 to-transparent md:w-[58%]" />
+        <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-[#0a1520] to-transparent md:h-32" />
+        <div className="absolute inset-x-0 top-0 h-28 bg-gradient-to-b from-[#0a1520]/80 to-transparent" />
+      </div>
+
+      <motion.div
+        className="relative z-10 mb-10 ml-5 mr-5 w-full max-w-xl rounded-3xl border border-gold/30 bg-[#0a1520]/88 px-6 py-8 shadow-2xl backdrop-blur-md md:mb-0 md:ml-auto md:mr-10 md:max-w-lg md:px-8 md:py-9 lg:mr-16 lg:max-w-xl"
+        initial={{ opacity: 0, y: 24 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.7 }}
+      >
+        <p className="text-lg text-gold md:text-xl">Final challenge · Köln</p>
+        <h1 className="font-display mt-2 text-4xl leading-tight text-snow md:text-5xl">
+          Warm up the hearth
+        </h1>
+        <p className="mt-3 text-base leading-relaxed text-snow/85 md:text-lg">
           Collect every charm from the market stalls, then answer the riddle to stop the clock.
         </p>
         <div className="mt-6">
@@ -101,7 +127,7 @@ export function Final() {
             </form>
           </>
         )}
-      </div>
-    </MarketFrame>
+      </motion.div>
+    </section>
   )
 }

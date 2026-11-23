@@ -11,7 +11,8 @@ export function AppShell({ children }: { children: ReactNode }) {
     pathname === '/create' ||
     pathname === '/join' ||
     pathname === '/hub' ||
-    pathname === '/leaderboard'
+    pathname === '/leaderboard' ||
+    pathname === '/final'
 
   const linkClass = ({ isActive }: { isActive: boolean }) =>
     `text-base transition ${isActive ? 'text-gold' : 'text-snow/80 hover:text-snow'}`

@@ -11,7 +11,7 @@ export function LeaderboardPage() {
     <section className="relative flex min-h-screen w-full flex-1 items-end overflow-hidden md:items-center md:justify-end">
       <div className="pointer-events-none absolute inset-0" aria-hidden>
         <div className="absolute inset-0 bg-[#1a100c]" />
-        <PaintedScene src="/images/leaderboard-santa.jpg" objectPosition="left center" />
+        <PaintedScene src="/images/leaderboard-santa-option-c.jpg" objectPosition="left center" />
         {/* Soften right side for the panel; leave Santa & scroll open on the left */}
         <div className="absolute inset-y-0 right-0 w-full bg-gradient-to-l from-[#0a1520]/93 via-[#0a1520]/45 to-transparent md:w-[58%]" />
         <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-[#0a1520] to-transparent md:h-32" />

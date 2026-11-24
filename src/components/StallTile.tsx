@@ -526,7 +526,6 @@ const shopGold = '#F0C33C'
 const shopPink = '#F5A8A8'
 const shopSkin = '#F2C9A8'
 const shopBrown = '#8B5A2B'
-const shopGinger = '#C48A4A'
 
 type ShopkeeperId =
   | 'ghost'

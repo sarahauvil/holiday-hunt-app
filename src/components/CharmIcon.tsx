@@ -420,6 +420,37 @@ export function CharmIcon({
           <path d="M16 40h16" stroke={gold} strokeWidth="1.2" />
         </svg>
       )
+    case 'clock':
+      return (
+        <svg {...common}>
+          {/* Old-style pocket / mantel clock */}
+          <ellipse cx="24" cy="42" rx="10" ry="3.5" fill={bark} stroke={ink} strokeWidth="2.2" />
+          <path
+            d="M14 38 V18 c0-2 2-4 4-4h12c2 0 4 2 4 4v20"
+            fill="#8B5A2B"
+            stroke={ink}
+            strokeWidth="2.8"
+            strokeLinejoin="round"
+          />
+          <rect x="16" y="8" width="16" height="8" rx="2" fill="#6B3E24" stroke={ink} strokeWidth="2.4" />
+          <circle cx="24" cy="26" r="11" fill={cream} stroke={ink} strokeWidth="2.8" />
+          <circle cx="24" cy="26" r="11" fill="none" stroke={gold} strokeWidth="1.6" opacity="0.7" />
+          {/* Hour marks */}
+          {[0, 30, 60, 90, 120, 150].map((deg) => (
+            <path
+              key={deg}
+              d="M24 16.5v2.2"
+              stroke={ink}
+              strokeWidth="1.8"
+              strokeLinecap="round"
+              transform={`rotate(${deg} 24 26)`}
+            />
+          ))}
+          <path d="M24 26 L24 18.5" stroke={ink} strokeWidth="2.4" strokeLinecap="round" />
+          <path d="M24 26 L30 29" stroke={ink} strokeWidth="2" strokeLinecap="round" />
+          <circle cx="24" cy="26" r="1.8" fill={gold} stroke={ink} strokeWidth="1.4" />
+        </svg>
+      )
     case 'fu':
       return (
         <svg {...common}>

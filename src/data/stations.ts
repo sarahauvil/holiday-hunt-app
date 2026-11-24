@@ -11,6 +11,7 @@ export type CharmId =
   | 'holly'
   | 'keys'
   | 'balldrop'
+  | 'clock'
   | 'fu'
   | 'diya'
   | 'shimekazari'
@@ -90,8 +91,8 @@ export const stations: Station[] = [
     owners: 'Luke H',
     blurb:
       'Gap Detective finds holes in processes and data so teams can close them before they become problems.',
-    charm: 'balldrop',
-    charmLabel: 'New Year ball',
+    charm: 'clock',
+    charmLabel: 'Old clock',
     challenge: {
       prompt: 'What does Gap Detective help teams find?',
       hint: 'Look closely…',
@@ -110,8 +111,8 @@ export const stations: Station[] = [
     owners: 'Rafal',
     blurb:
       'FORGE is building capabilities that help IT forge stronger tools and workflows across initiatives.',
-    charm: 'yulelog',
-    charmLabel: 'Yule log',
+    charm: 'snowglobe',
+    charmLabel: 'Snow globe',
     challenge: {
       prompt: 'FORGE is focused on helping teams do what with tools and workflows?',
       hint: 'The project name is a verb…',

@@ -182,3 +182,189 @@ code {
     transform: rotate(-28deg);
   }
 }
+
+/* Hub stall roofs — playful motion on hover */
+
+/* GhostwrAIter: string lights twinkle */
+.roof-light-bulb {
+  transform-box: fill-box;
+  transform-origin: center;
+  transition: opacity 0.2s ease;
+}
+
+.group:hover .roof-light-bulb,
+.group:focus-visible .roof-light-bulb {
+  animation: roof-twinkle 0.9s ease-in-out infinite;
+  animation-delay: var(--roof-delay, 0s);
+}
+
+@keyframes roof-twinkle {
+  0%,
+  100% {
+    opacity: 1;
+    filter: brightness(1);
+  }
+  40% {
+    opacity: 0.35;
+    filter: brightness(0.7);
+  }
+  70% {
+    opacity: 1;
+    filter: brightness(1.35);
+  }
+}
+
+/* Gap Detective: fireworks burst */
+.roof-firework {
+  transform-box: fill-box;
+  transform-origin: center;
+  opacity: 0.85;
+}
+
+.group:hover .roof-firework,
+.group:focus-visible .roof-firework {
+  animation: roof-firework-burst 1.1s ease-out infinite;
+  animation-delay: var(--roof-delay, 0s);
+}
+
+@keyframes roof-firework-burst {
+  0% {
+    opacity: 0.2;
+    transform: scale(0.35);
+  }
+  35% {
+    opacity: 1;
+    transform: scale(1.15);
+  }
+  100% {
+    opacity: 0.15;
+    transform: scale(1.45);
+  }
+}
+
+/* OrbitOne: lanterns sway */
+.roof-lantern {
+  transform-box: fill-box;
+  transform-origin: 50% 0%;
+}
+
+.group:hover .roof-lantern,
+.group:focus-visible .roof-lantern {
+  animation: roof-lantern-sway 1.4s ease-in-out infinite;
+  animation-delay: var(--roof-delay, 0s);
+  animation-direction: var(--roof-dir, alternate);
+}
+
+@keyframes roof-lantern-sway {
+  0%,
+  100% {
+    transform: rotate(-7deg);
+  }
+  50% {
+    transform: rotate(8deg);
+  }
+}
+
+/* FORGE: snowflakes fall across the roof */
+.roof-snowflake {
+  opacity: 0;
+}
+
+.group:hover .roof-snowflake,
+.group:focus-visible .roof-snowflake {
+  animation: roof-snow-fall 1.6s linear infinite;
+  animation-delay: var(--roof-delay, 0s);
+}
+
+@keyframes roof-snow-fall {
+  0% {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+  15% {
+    opacity: 0.95;
+  }
+  100% {
+    opacity: 0.15;
+    transform: translateY(28px);
+  }
+}
+
+/* Cross Divisional Pilot: Diwali candle flames flicker */
+.roof-flame {
+  transform-box: fill-box;
+  transform-origin: center bottom;
+}
+
+.group:hover .roof-flame,
+.group:focus-visible .roof-flame {
+  animation: roof-flame-flicker 0.55s ease-in-out infinite;
+  animation-delay: var(--roof-delay, 0s);
+}
+
+@keyframes roof-flame-flicker {
+  0%,
+  100% {
+    transform: scaleY(1) scaleX(1);
+    opacity: 1;
+  }
+  30% {
+    transform: scaleY(1.25) scaleX(0.85) translateY(-0.5px);
+    opacity: 0.85;
+  }
+  60% {
+    transform: scaleY(0.8) scaleX(1.1);
+    opacity: 1;
+  }
+}
+
+/* Elevit: shide paper strips sway in the wind */
+.roof-shide {
+  transform-box: fill-box;
+  transform-origin: top center;
+}
+
+.group:hover .roof-shide,
+.group:focus-visible .roof-shide {
+  animation: roof-shide-sway 1.5s ease-in-out infinite;
+  animation-delay: var(--roof-delay, 0s);
+  animation-direction: var(--roof-dir, normal);
+}
+
+@keyframes roof-shide-sway {
+  0%,
+  100% {
+    transform: rotate(-6deg) translateX(-1px);
+  }
+  50% {
+    transform: rotate(8deg) translateX(1.5px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .group:hover .roof-light-bulb,
+  .group:focus-visible .roof-light-bulb,
+  .group:hover .roof-firework,
+  .group:focus-visible .roof-firework,
+  .group:hover .roof-lantern,
+  .group:focus-visible .roof-lantern,
+  .group:hover .roof-snowflake,
+  .group:focus-visible .roof-snowflake,
+  .group:hover .roof-flame,
+  .group:focus-visible .roof-flame,
+  .group:hover .roof-shide,
+  .group:focus-visible .roof-shide {
+    animation: none;
+  }
+
+  .group:hover .roof-light-bulb,
+  .group:focus-visible .roof-light-bulb {
+    opacity: 1;
+    filter: brightness(1.2);
+  }
+
+  .group:hover .roof-snowflake,
+  .group:focus-visible .roof-snowflake {
+    opacity: 0.7;
+  }
+}

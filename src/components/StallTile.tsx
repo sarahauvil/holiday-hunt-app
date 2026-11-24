@@ -8,7 +8,7 @@ export type StallVariantId =
   | 'nye'
   | 'cny'
   | 'redShingles'
-  | 'stone'
+  | 'winterWonderland'
   | 'diwali'
   | 'shogatsu'
   | 'brassKeys'
@@ -17,7 +17,7 @@ export const stallVariantByStation: Record<string, StallVariantId> = {
   ghostwriter: 'lights',
   myorders: 'wreath',
   gap: 'nye',
-  forge: 'stone',
+  forge: 'winterWonderland',
   orbit: 'cny',
   llm: 'redShingles',
   pilot: 'diwali',
@@ -69,11 +69,12 @@ const palettes: Record<StallVariantId, StallPalette> = {
     border: 'rgba(180,50,40,0.5)',
     borderUnlocked: 'rgba(212,180,92,0.8)',
   },
-  stone: {
-    bodyFrom: '#4a4e52',
-    bodyTo: '#2a2e32',
-    border: 'rgba(140,140,145,0.55)',
-    borderUnlocked: 'rgba(212,180,92,0.8)',
+  winterWonderland: {
+    bodyFrom: '#1e3a4a',
+    bodyTo: '#0f222e',
+    border: 'rgba(200,230,245,0.45)',
+    borderUnlocked: 'rgba(245,250,252,0.85)',
+    accent: '#f5fafc',
   },
   diwali: {
     bodyFrom: '#4a1a5c',
@@ -123,10 +124,18 @@ function StallRoof({ variant }: { variant: StallVariantId }) {
           <path d="M4 48 L100 6 L196 48 Z" fill="#1a3d2e" stroke="#d4b45c" strokeWidth="2" strokeLinejoin="round" />
           <path d="M20 46 L100 14 L180 46 Z" fill="#2a5a42" opacity="0.85" />
           <path d="M100 6 L100 14" stroke="#d4b45c" strokeWidth="2" strokeLinecap="round" />
-          {/* String lights along eaves */}
+          {/* String lights along eaves — twinkle on hover */}
           <path d="M22 44 Q60 38 100 42 Q140 46 178 44" fill="none" stroke="#1a1208" strokeWidth="1.2" />
           {[28, 48, 68, 88, 108, 128, 148, 168].map((x, i) => (
-            <circle key={x} cx={x} cy={42 + (i % 2)} r="2.4" fill={['#f5d76e', '#e85d4c', '#7ec8e3', '#f5d76e'][i % 4]} />
+            <circle
+              key={x}
+              className="roof-light-bulb"
+              style={{ ['--roof-delay' as string]: `${(i % 4) * 0.22}s` }}
+              cx={x}
+              cy={42 + (i % 2)}
+              r="2.4"
+              fill={['#f5d76e', '#e85d4c', '#7ec8e3', '#f5d76e'][i % 4]}
+            />
           ))}
         </svg>
       )
@@ -155,16 +164,20 @@ function StallRoof({ variant }: { variant: StallVariantId }) {
       )
     case 'nye':
       return (
-        <svg viewBox="0 0 200 56" className="block h-auto w-full" preserveAspectRatio="none">
+        <svg viewBox="0 0 200 56" className="block h-auto w-full overflow-visible" preserveAspectRatio="none">
           <path d="M4 50 L100 6 L196 50 Z" fill="#1a1040" stroke="#f0c33c" strokeWidth="2.2" strokeLinejoin="round" />
           <path d="M20 48 L100 14 L180 48 Z" fill="#2a1860" />
-          {/* Fireworks bursts */}
+          {/* Fireworks bursts — expand on hover */}
           {[
             [36, 22],
             [100, 12],
             [164, 22],
           ].map(([cx, cy], i) => (
-            <g key={i} opacity="0.95">
+            <g
+              key={i}
+              className="roof-firework"
+              style={{ ['--roof-delay' as string]: `${i * 0.35}s` }}
+            >
               {[0, 45, 90, 135, 180, 225, 270, 315].map((deg) => (
                 <path
                   key={deg}
@@ -193,12 +206,19 @@ function StallRoof({ variant }: { variant: StallVariantId }) {
       )
     case 'cny':
       return (
-        <svg viewBox="0 0 200 56" className="block h-auto w-full" preserveAspectRatio="none">
+        <svg viewBox="0 0 200 56" className="block h-auto w-full overflow-visible" preserveAspectRatio="none">
           <path d="M6 50 L100 4 L194 50 Z" fill="#8b1a1a" stroke="#f0c33c" strokeWidth="2.4" strokeLinejoin="round" />
           <path d="M22 48 L100 14 L178 48 Z" fill="#a82828" />
-          {/* Hanging lanterns */}
+          {/* Hanging lanterns — sway on hover */}
           {[40, 70, 100, 130, 160].map((x, i) => (
-            <g key={x}>
+            <g
+              key={x}
+              className="roof-lantern"
+              style={{
+                ['--roof-delay' as string]: `${(i % 3) * 0.15}s`,
+                ['--roof-dir' as string]: i % 2 === 0 ? 'alternate' : 'alternate-reverse',
+              }}
+            >
               <path d={`M${x} 18 v6`} stroke="#f0c33c" strokeWidth="1.2" />
               <ellipse cx={x} cy={30} rx="8" ry="10" fill={i % 2 === 0 ? '#c41e1e' : '#f0c33c'} stroke="#1B2A4A" strokeWidth="1.2" />
               <path d={`M${x - 5} 38 Q${x} 42 ${x + 5} 38`} fill="#c41e1e" stroke="#1B2A4A" strokeWidth="0.8" />
@@ -234,42 +254,82 @@ function StallRoof({ variant }: { variant: StallVariantId }) {
           <path d="M100 6 L100 14" stroke="#d4b45c" strokeWidth="2" />
         </svg>
       )
-    case 'stone':
+    case 'winterWonderland':
       return (
-        <svg viewBox="0 0 200 50" className="block h-auto w-full" preserveAspectRatio="none">
-          {/* Lower, heavier stone roof */}
-          <path d="M6 46 L100 10 L194 46 Z" fill="#5a5e62" stroke="#8a8e92" strokeWidth="2" strokeLinejoin="round" />
-          <path d="M22 44 L100 18 L178 44 Z" fill="#6a6e72" opacity="0.9" />
-          {/* Irregular stone blocks on roof face */}
-          <rect x="50" y="28" width="22" height="10" rx="1" fill="#4a4e52" stroke="#7a7e82" strokeWidth="0.8" opacity="0.8" />
-          <rect x="74" y="26" width="28" height="12" rx="1" fill="#55595d" stroke="#7a7e82" strokeWidth="0.8" opacity="0.75" />
-          <rect x="104" y="28" width="24" height="10" rx="1" fill="#4e5256" stroke="#7a7e82" strokeWidth="0.8" opacity="0.8" />
-          <rect x="60" y="36" width="26" height="8" rx="1" fill="#52565a" stroke="#7a7e82" strokeWidth="0.8" opacity="0.7" />
-          <rect x="90" y="36" width="30" height="8" rx="1" fill="#484c50" stroke="#7a7e82" strokeWidth="0.8" opacity="0.7" />
-          <path d="M100 10 L100 18" stroke="#a0a4a8" strokeWidth="2" />
+        <svg viewBox="0 0 200 54" className="block h-auto w-full overflow-visible" preserveAspectRatio="none">
+          <path d="M4 48 L100 6 L196 48 Z" fill="#3a5a6a" stroke="#f5fafc" strokeWidth="2.4" strokeLinejoin="round" />
+          <path d="M20 46 L100 14 L180 46 Z" fill="#4a6a7a" />
+          {/* Snow cap on ridge */}
+          <path
+            d="M55 22 Q78 8 100 6 Q122 8 145 22 Q128 16 100 14 Q72 16 55 22 Z"
+            fill="#f5fafc"
+            opacity="0.95"
+          />
+          <circle cx="70" cy="16" r="3" fill="#fff" opacity="0.9" />
+          <circle cx="100" cy="10" r="3.5" fill="#fff" opacity="0.95" />
+          <circle cx="130" cy="16" r="2.8" fill="#fff" opacity="0.9" />
+          {/* Falling snowflakes — animate on hover */}
+          <g className="roof-snowfall" aria-hidden>
+            {[
+              [32, 8, 1.4],
+              [58, 4, 1.1],
+              [88, 2, 1.6],
+              [118, 5, 1.2],
+              [148, 3, 1.5],
+              [172, 9, 1.1],
+            ].map(([cx, cy, r], i) => (
+              <circle
+                key={i}
+                className="roof-snowflake"
+                style={{ ['--roof-delay' as string]: `${i * 0.25}s` }}
+                cx={cx}
+                cy={cy}
+                r={r}
+                fill="#f5fafc"
+              />
+            ))}
+          </g>
+          {/* Icicles */}
+          {[40, 60, 80, 100, 120, 140, 160].map((x, i) => (
+            <path
+              key={x}
+              d={`M${x} 40 L${x - 2} 48 L${x + 2} 48 Z`}
+              fill="#e8f4fa"
+              opacity={0.7 + (i % 3) * 0.1}
+            />
+          ))}
+          <path d="M100 6 L100 14" stroke="#c8e0f0" strokeWidth="2" />
         </svg>
       )
     case 'diwali':
       return (
-        <svg viewBox="0 0 200 54" className="block h-auto w-full" preserveAspectRatio="none">
+        <svg viewBox="0 0 200 54" className="block h-auto w-full overflow-visible" preserveAspectRatio="none">
           <path d="M4 48 L100 5 L196 48 Z" fill="#5c1a7a" stroke="#ff9f1c" strokeWidth="2.2" strokeLinejoin="round" />
           <path d="M20 46 L100 14 L180 46 Z" fill="#7a2a9a" />
           {/* Rangoli-inspired ridge dots */}
           {[50, 70, 90, 110, 130, 150].map((x, i) => (
             <circle key={x} cx={x} cy={16 + (i % 2) * 3} r="3" fill={['#ff9f1c', '#e85d4c', '#f0c33c', '#2f8f4e'][i % 4]} />
           ))}
-          {/* Candle flames along eaves */}
-          {[35, 55, 75, 95, 115, 135, 155, 175].map((x) => (
+          {/* Candle flames along eaves — flicker on hover */}
+          {[35, 55, 75, 95, 115, 135, 155, 175].map((x, i) => (
             <g key={x}>
               <rect x={x - 1.5} y={36} width="3" height="8" fill="#f5e6c8" stroke="#1B2A4A" strokeWidth="0.6" />
-              <ellipse cx={x} cy={34} rx="2.2" ry="3.5" fill="#ffb347" />
+              <ellipse
+                className="roof-flame"
+                style={{ ['--roof-delay' as string]: `${(i % 3) * 0.14}s` }}
+                cx={x}
+                cy={34}
+                rx="2.2"
+                ry="3.5"
+                fill="#ffb347"
+              />
             </g>
           ))}
         </svg>
       )
     case 'shogatsu':
       return (
-        <svg viewBox="0 0 200 56" className="block h-auto w-full" preserveAspectRatio="none">
+        <svg viewBox="0 0 200 56" className="block h-auto w-full overflow-visible" preserveAspectRatio="none">
           <path d="M6 50 L100 6 L194 50 Z" fill="#f5f0e6" stroke="#c41e1e" strokeWidth="2.4" strokeLinejoin="round" />
           <path d="M22 48 L100 16 L178 48 Z" fill="#ebe4d6" />
           {/* Shimekazari rope across near the roof */}
@@ -288,10 +348,15 @@ function StallRoof({ variant }: { variant: StallVariantId }) {
             strokeLinecap="round"
             strokeDasharray="4 5"
           />
-          {/* Shide zigzags */}
-          {[50, 80, 100, 120, 150].map((x) => (
+          {/* Shide zigzags — sway in the wind on hover */}
+          {[50, 80, 100, 120, 150].map((x, i) => (
             <path
               key={x}
+              className="roof-shide"
+              style={{
+                ['--roof-delay' as string]: `${(i % 3) * 0.18}s`,
+                ['--roof-dir' as string]: i % 2 === 0 ? 'normal' : 'reverse',
+              }}
               d={`M${x} 30 l-3 5 3 5 -3 5 3 5`}
               fill="none"
               stroke="#FFF8F0"
@@ -341,7 +406,10 @@ function StallAwning({ variant }: { variant: StallVariantId }) {
       background: 'repeating-linear-gradient(90deg, #8b1a1a 0 10px, #f5e6c8 10px 20px)',
       border: 'rgba(180,50,40,0.45)',
     },
-    stone: null,
+    winterWonderland: {
+      background: 'repeating-linear-gradient(90deg, #1e3a4a 0 12px, #f5fafc 12px 24px)',
+      border: 'rgba(200,230,245,0.5)',
+    },
     diwali: {
       background: 'repeating-linear-gradient(90deg, #7a2a9a 0 8px, #ff9f1c 8px 16px, #e85d4c 16px 24px)',
       border: 'rgba(255,160,40,0.55)',
@@ -400,20 +468,27 @@ function StallBodyDecor({ variant, unlocked }: { variant: StallVariantId; unlock
           </div>
         </>
       )
-    case 'stone':
+    case 'winterWonderland':
       return (
-        <div
-          className="pointer-events-none absolute inset-0 rounded-b-xl opacity-[0.35]"
-          aria-hidden
-          style={{
-            backgroundImage: `
-              linear-gradient(90deg, transparent 48%, rgba(0,0,0,0.35) 49%, transparent 51%),
-              linear-gradient(0deg, transparent 40%, rgba(0,0,0,0.3) 41%, transparent 43%),
-              linear-gradient(0deg, transparent 72%, rgba(0,0,0,0.25) 73%, transparent 75%)
-            `,
-            backgroundSize: '28px 100%, 100% 100%, 100% 100%',
-          }}
-        />
+        <>
+          <div
+            className="pointer-events-none absolute inset-0 rounded-b-xl opacity-45"
+            aria-hidden
+            style={{
+              backgroundImage:
+                'radial-gradient(circle at 20% 20%, rgba(245,250,252,0.35), transparent 35%), radial-gradient(circle at 80% 30%, rgba(180,220,240,0.25), transparent 40%)',
+            }}
+          />
+          {/* Falling snow dots */}
+          {[12, 28, 45, 62, 78].map((left, i) => (
+            <span
+              key={left}
+              className="pointer-events-none absolute h-1 w-1 rounded-full bg-snow/70"
+              style={{ left: `${left}%`, top: `${10 + (i % 3) * 18}%` }}
+              aria-hidden
+            />
+          ))}
+        </>
       )
     case 'diwali':
       return (
@@ -531,7 +606,7 @@ type ShopkeeperId =
   | 'ghost'
   | 'mrsClaus'
   | 'nyeParty'
-  | 'nutcracker'
+  | 'snowman'
   | 'sheepGoat'
   | 'elf'
   | 'diwaliHost'
@@ -542,7 +617,7 @@ export const shopkeeperByStation: Record<string, ShopkeeperId> = {
   ghostwriter: 'ghost',
   myorders: 'mrsClaus',
   gap: 'nyeParty',
-  forge: 'nutcracker',
+  forge: 'snowman',
   orbit: 'sheepGoat',
   llm: 'elf',
   pilot: 'diwaliHost',
@@ -695,27 +770,28 @@ function ShopkeeperSvg({ id }: { id: ShopkeeperId }) {
           <circle cx="48" cy="34" r="1.2" fill={shopGold} />
         </svg>
       )
-    case 'nutcracker':
+    case 'snowman':
       return (
         <svg {...common}>
           <StallCounter />
-          <RestingArms fill="#1E3A6E" />
-          <rect x="34" y="1" width="16" height="11" rx="1.5" fill={shopRed} stroke={shopInk} strokeWidth="2" />
-          <rect x="32" y="10.5" width="20" height="3.5" fill={shopGold} stroke={shopInk} strokeWidth="1.6" />
-          <rect x="34" y="14" width="16" height="13" rx="2" fill={shopSkin} stroke={shopInk} strokeWidth="2" />
-          <rect x="37" y="18" width="4" height="3" rx="0.5" fill={shopInk} />
-          <rect x="43" y="18" width="4" height="3" rx="0.5" fill={shopInk} />
-          <rect x="38" y="23" width="8" height="2.5" rx="0.5" fill={shopCream} stroke={shopInk} strokeWidth="1.2" />
-          <path d="M37 26h10" stroke={shopInk} strokeWidth="2" strokeLinecap="round" />
-          <path
-            d="M32 28h20v16c0 1-1 2-2 2H34c-1 0-2-1-2-2V28z"
-            fill="#1E3A6E"
-            stroke={shopInk}
-            strokeWidth="2"
-            strokeLinejoin="round"
-          />
-          <rect x="38" y="30" width="8" height="10" rx="1" fill={shopGold} stroke={shopInk} strokeWidth="1.4" />
-          <path d="M42 30v10" stroke={shopInk} strokeWidth="1.2" />
+          <RestingArms fill={shopCream} />
+          {/* Top hat */}
+          <rect x="36" y="2" width="12" height="8" rx="1" fill="#1B2A4A" stroke={shopInk} strokeWidth="1.8" />
+          <rect x="33" y="9" width="18" height="3.5" fill="#1B2A4A" stroke={shopInk} strokeWidth="1.6" />
+          <path d="M33 11h18" stroke={shopRed} strokeWidth="2" />
+          {/* Head + body snowballs */}
+          <circle cx="42" cy="20" r="8" fill={shopCream} stroke={shopInk} strokeWidth="2" />
+          <ellipse cx="39" cy="19" rx="1.3" ry="1.6" fill={shopInk} />
+          <ellipse cx="45" cy="19" rx="1.3" ry="1.6" fill={shopInk} />
+          <path d="M42 21 L46 23 L42 24 Z" fill="#E8782A" stroke={shopInk} strokeWidth="1.2" strokeLinejoin="round" />
+          <path d="M39.5 25c1.2 1.1 3.8 1.1 5 0" stroke={shopInk} strokeWidth="1.4" strokeLinecap="round" />
+          <ellipse cx="42" cy="36" rx="12" ry="10" fill={shopCream} stroke={shopInk} strokeWidth="2" />
+          {/* Scarf */}
+          <path d="M32 28h20" stroke={shopRed} strokeWidth="4" strokeLinecap="round" />
+          <path d="M48 28 L54 38" stroke={shopRed} strokeWidth="3.5" strokeLinecap="round" />
+          <path d="M48 28 L54 38" stroke={shopGreen} strokeWidth="3.5" strokeLinecap="round" strokeDasharray="3 4" />
+          <circle cx="40" cy="34" r="1.6" fill="#1B2A4A" />
+          <circle cx="44" cy="37" r="1.6" fill="#1B2A4A" />
         </svg>
       )
     case 'sheepGoat':

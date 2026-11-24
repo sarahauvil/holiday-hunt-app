@@ -10,6 +10,10 @@ export type CharmId =
   | 'candycane'
   | 'holly'
   | 'keys'
+  | 'balldrop'
+  | 'fu'
+  | 'diya'
+  | 'shimekazari'
 
 export type Station = {
   id: string
@@ -86,8 +90,8 @@ export const stations: Station[] = [
     owners: 'Luke H',
     blurb:
       'Gap Detective finds holes in processes and data so teams can close them before they become problems.',
-    charm: 'hat',
-    charmLabel: 'Santa hat',
+    charm: 'balldrop',
+    charmLabel: 'New Year ball',
     challenge: {
       prompt: 'What does Gap Detective help teams find?',
       hint: 'Look closely…',
@@ -126,8 +130,8 @@ export const stations: Station[] = [
     owners: 'Damian',
     blurb:
       'OrbitOne brings work into one orbit — discover how it connects people and platforms.',
-    charm: 'snowglobe',
-    charmLabel: 'Snow globe',
+    charm: 'fu',
+    charmLabel: '福 decoration',
     challenge: {
       prompt: 'OrbitOne aims to bring work into how many orbits?',
       hint: 'Count carefully…',
@@ -166,8 +170,8 @@ export const stations: Station[] = [
     owners: 'Chris Beckers',
     blurb:
       'A cross-divisional IT pilot exploring how teams across Consumer Health collaborate on shared technology bets.',
-    charm: 'reindeer',
-    charmLabel: 'Reindeer',
+    charm: 'diya',
+    charmLabel: 'Diwali lamp',
     challenge: {
       prompt: 'This pilot spans across what organizational boundaries?',
       hint: 'More than one…',
@@ -186,8 +190,8 @@ export const stations: Station[] = [
     owners: 'Michael / Maiyuan',
     blurb:
       'Elevit meets Direct-to-Consumer commerce — learn how digital storefronts connect brands with customers.',
-    charm: 'gingerbread',
-    charmLabel: 'Gingerbread',
+    charm: 'shimekazari',
+    charmLabel: 'Shimekazari',
     challenge: {
       prompt: 'D2C in this initiative stands for Direct to …?',
       hint: 'Who buys?',

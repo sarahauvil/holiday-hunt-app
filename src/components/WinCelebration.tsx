@@ -1,6 +1,7 @@
 import { useId } from 'react'
 import { motion } from 'framer-motion'
 import type { Team } from '../lib/types'
+import { FinalePuzzle } from './FinalePuzzle'
 import { PaintedScene } from './PaintedScene'
 
 const FLAME_EASE = 'easeInOut' as const
@@ -672,10 +673,10 @@ export function WinCelebration({
           Frohes Fest aus Köln!
         </motion.p>
         <h1 className="font-display mt-2 text-4xl text-snow md:text-6xl">
-          You found the FIREPLACE!
+          You decorated the FIREPLACE!
         </h1>
         <p className="mx-auto mt-2 text-sm font-medium tracking-wide text-gold/90">
-          Mantel lit · stockings stuffed · hunt complete
+          Mantel lit · stockings stuffed · one last puzzle
         </p>
         <p className="mx-auto mt-3 max-w-md text-snow/85">
           {team.name} toured every stall and lit the hearth. Glühwein is on us (figuratively).
@@ -683,6 +684,8 @@ export function WinCelebration({
         <div className="mt-6">
           <FireplaceSvg />
         </div>
+        {/* Final task: drag-and-drop puzzle — pass imageSrc later for real art */}
+        <FinalePuzzle />
         <div className="mt-6 flex flex-wrap items-center justify-center gap-6 text-sm text-snow/80">
           {rank != null && (
             <p>

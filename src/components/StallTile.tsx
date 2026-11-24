@@ -5,23 +5,23 @@ import type { Station } from '../data/stations'
 export type StallVariantId =
   | 'lights'
   | 'wreath'
-  | 'timber'
-  | 'bavarian'
+  | 'nye'
+  | 'cny'
   | 'redShingles'
   | 'stone'
-  | 'slateSnow'
-  | 'gingerbread'
+  | 'diwali'
+  | 'shogatsu'
   | 'brassKeys'
 
 export const stallVariantByStation: Record<string, StallVariantId> = {
   ghostwriter: 'lights',
   myorders: 'wreath',
-  gap: 'timber',
+  gap: 'nye',
   forge: 'stone',
-  orbit: 'bavarian',
+  orbit: 'cny',
   llm: 'redShingles',
-  pilot: 'slateSnow',
-  elevit: 'gingerbread',
+  pilot: 'diwali',
+  elevit: 'shogatsu',
   keys: 'brassKeys',
 }
 
@@ -49,18 +49,19 @@ const palettes: Record<StallVariantId, StallPalette> = {
     borderUnlocked: 'rgba(212,180,92,0.8)',
     accent: '#2d6b3a',
   },
-  timber: {
-    bodyFrom: '#5c3d1e',
-    bodyTo: '#2a1a0c',
-    border: 'rgba(160,110,50,0.65)',
-    borderUnlocked: 'rgba(212,180,92,0.85)',
-    plank: 'repeating-linear-gradient(180deg, transparent 0 10px, rgba(0,0,0,0.35) 10px 11px)',
+  nye: {
+    bodyFrom: '#1a1040',
+    bodyTo: '#0a0818',
+    border: 'rgba(240,195,60,0.55)',
+    borderUnlocked: 'rgba(240,195,60,0.9)',
+    accent: '#f0c33c',
   },
-  bavarian: {
-    bodyFrom: '#f2e8d5',
-    bodyTo: '#d9c9a8',
-    border: 'rgba(90,50,30,0.55)',
-    borderUnlocked: 'rgba(180,40,40,0.75)',
+  cny: {
+    bodyFrom: '#8b1a1a',
+    bodyTo: '#4a0c0c',
+    border: 'rgba(240,195,60,0.6)',
+    borderUnlocked: 'rgba(255,220,100,0.95)',
+    accent: '#f0c33c',
   },
   redShingles: {
     bodyFrom: '#2a2040',
@@ -74,19 +75,19 @@ const palettes: Record<StallVariantId, StallPalette> = {
     border: 'rgba(140,140,145,0.55)',
     borderUnlocked: 'rgba(212,180,92,0.8)',
   },
-  slateSnow: {
-    bodyFrom: '#1e3a4a',
-    bodyTo: '#0f222e',
-    border: 'rgba(70,120,90,0.55)',
-    borderUnlocked: 'rgba(212,180,92,0.8)',
-    accent: '#3d7a4a',
+  diwali: {
+    bodyFrom: '#4a1a5c',
+    bodyTo: '#1a0a28',
+    border: 'rgba(255,160,40,0.55)',
+    borderUnlocked: 'rgba(255,200,80,0.9)',
+    accent: '#ff9f1c',
   },
-  gingerbread: {
-    bodyFrom: '#6b3a1e',
-    bodyTo: '#3d200f',
-    border: 'rgba(245,230,200,0.45)',
-    borderUnlocked: 'rgba(245,220,170,0.85)',
-    accent: '#f5e6c8',
+  shogatsu: {
+    bodyFrom: '#f5f0e6',
+    bodyTo: '#d9d0c0',
+    border: 'rgba(180,40,40,0.55)',
+    borderUnlocked: 'rgba(180,40,40,0.85)',
+    accent: '#c41e1e',
   },
   brassKeys: {
     bodyFrom: '#3a2a12',
@@ -152,40 +153,61 @@ function StallRoof({ variant }: { variant: StallVariantId }) {
           <path d="M100 30 L96 38 L104 38 Z" fill="#d4b45c" />
         </svg>
       )
-    case 'timber':
+    case 'nye':
       return (
-        <svg viewBox="0 0 200 50" className="block h-auto w-full" preserveAspectRatio="none">
-          {/* Broader, flatter timber roof */}
-          <path d="M2 48 L100 8 L198 48 Z" fill="#4a2e14" stroke="#c4a06a" strokeWidth="2.5" strokeLinejoin="round" />
-          <path d="M16 46 L100 16 L184 46 Z" fill="#6b4423" />
-          {/* Plank lines on roof */}
-          {[0, 1, 2, 3, 4].map((i) => (
-            <line
-              key={i}
-              x1={30 + i * 14}
-              y1={44 - i * 5}
-              x2={170 - i * 14}
-              y2={44 - i * 5}
-              stroke="#3d2817"
-              strokeWidth="1"
-              opacity="0.45"
-            />
+        <svg viewBox="0 0 200 56" className="block h-auto w-full" preserveAspectRatio="none">
+          <path d="M4 50 L100 6 L196 50 Z" fill="#1a1040" stroke="#f0c33c" strokeWidth="2.2" strokeLinejoin="round" />
+          <path d="M20 48 L100 14 L180 48 Z" fill="#2a1860" />
+          {/* Fireworks bursts */}
+          {[
+            [36, 22],
+            [100, 12],
+            [164, 22],
+          ].map(([cx, cy], i) => (
+            <g key={i} opacity="0.95">
+              {[0, 45, 90, 135, 180, 225, 270, 315].map((deg) => (
+                <path
+                  key={deg}
+                  d={`M${cx} ${cy} l${Math.cos((deg * Math.PI) / 180) * 8} ${Math.sin((deg * Math.PI) / 180) * 8}`}
+                  stroke={i === 1 ? '#f0c33c' : i === 0 ? '#e85d4c' : '#7ec8e3'}
+                  strokeWidth="1.5"
+                  strokeLinecap="round"
+                />
+              ))}
+              <circle cx={cx} cy={cy} r="2" fill="#fff8f0" />
+            </g>
           ))}
-          <path d="M100 8 L100 16" stroke="#c4a06a" strokeWidth="2.5" strokeLinecap="round" />
+          <rect x="28" y="34" width="144" height="12" rx="2" fill="#0a0818" opacity="0.85" />
+          <text
+            x="100"
+            y="43.5"
+            textAnchor="middle"
+            fontSize="8"
+            fontFamily="Georgia, serif"
+            fontWeight="700"
+            fill="#f0c33c"
+          >
+            Happy New Year
+          </text>
         </svg>
       )
-    case 'bavarian':
+    case 'cny':
       return (
-        <svg viewBox="0 0 200 54" className="block h-auto w-full" preserveAspectRatio="none">
-          {/* Steeper Alpine gable */}
-          <path d="M10 50 L100 2 L190 50 Z" fill="#5c2a1a" stroke="#3d1a0e" strokeWidth="2" strokeLinejoin="round" />
-          <path d="M26 48 L100 12 L174 48 Z" fill="#7a3a22" />
-          {/* White snow edge */}
-          <path d="M10 50 L100 2 L190 50" fill="none" stroke="#f5fafc" strokeWidth="3" opacity="0.7" />
-          <path d="M100 2 L100 12" stroke="#d4b45c" strokeWidth="2" />
-          {/* Small dormer bump */}
-          <path d="M78 28 L100 16 L122 28 L122 36 L78 36 Z" fill="#8b4518" stroke="#3d1a0e" strokeWidth="1" />
-          <rect x="92" y="26" width="16" height="10" fill="#4a7ab5" opacity="0.85" />
+        <svg viewBox="0 0 200 56" className="block h-auto w-full" preserveAspectRatio="none">
+          <path d="M6 50 L100 4 L194 50 Z" fill="#8b1a1a" stroke="#f0c33c" strokeWidth="2.4" strokeLinejoin="round" />
+          <path d="M22 48 L100 14 L178 48 Z" fill="#a82828" />
+          {/* Hanging lanterns */}
+          {[40, 70, 100, 130, 160].map((x, i) => (
+            <g key={x}>
+              <path d={`M${x} 18 v6`} stroke="#f0c33c" strokeWidth="1.2" />
+              <ellipse cx={x} cy={30} rx="8" ry="10" fill={i % 2 === 0 ? '#c41e1e' : '#f0c33c'} stroke="#1B2A4A" strokeWidth="1.2" />
+              <path d={`M${x - 5} 38 Q${x} 42 ${x + 5} 38`} fill="#c41e1e" stroke="#1B2A4A" strokeWidth="0.8" />
+              <rect x={x - 3} y={22} width="6" height="3" fill="#f0c33c" />
+            </g>
+          ))}
+          <text x="100" y="12" textAnchor="middle" fontSize="10" fill="#f0c33c" fontFamily="Georgia, serif">
+            福
+          </text>
         </svg>
       )
     case 'redShingles':
@@ -227,60 +249,59 @@ function StallRoof({ variant }: { variant: StallVariantId }) {
           <path d="M100 10 L100 18" stroke="#a0a4a8" strokeWidth="2" />
         </svg>
       )
-    case 'slateSnow':
+    case 'diwali':
       return (
         <svg viewBox="0 0 200 54" className="block h-auto w-full" preserveAspectRatio="none">
-          <path d="M4 48 L100 5 L196 48 Z" fill="#2a3a4a" stroke="#8a9aaa" strokeWidth="2" strokeLinejoin="round" />
-          <path d="M18 46 L100 14 L182 46 Z" fill="#3a4a5a" />
-          {/* Slate tile grid */}
-          {[0, 1, 2].map((row) =>
-            [0, 1, 2, 3, 4, 5].map((col) => {
-              const x = 40 + col * 20 + (row % 2) * 10
-              const y = 20 + row * 9
-              if (x < 35 || x > 155) return null
-              return (
-                <rect
-                  key={`${row}-${col}`}
-                  x={x}
-                  y={y}
-                  width="18"
-                  height="8"
-                  fill="none"
-                  stroke="#1a2a3a"
-                  strokeWidth="0.7"
-                  opacity="0.55"
-                />
-              )
-            }),
-          )}
-          {/* Snow cap on ridge */}
-          <path
-            d="M70 18 Q85 8 100 5 Q115 8 130 18 Q118 14 100 12 Q82 14 70 18 Z"
-            fill="#f5fafc"
-            opacity="0.92"
-          />
-          <circle cx="88" cy="12" r="2.5" fill="#fff" opacity="0.9" />
-          <circle cx="112" cy="13" r="2" fill="#fff" opacity="0.85" />
+          <path d="M4 48 L100 5 L196 48 Z" fill="#5c1a7a" stroke="#ff9f1c" strokeWidth="2.2" strokeLinejoin="round" />
+          <path d="M20 46 L100 14 L180 46 Z" fill="#7a2a9a" />
+          {/* Rangoli-inspired ridge dots */}
+          {[50, 70, 90, 110, 130, 150].map((x, i) => (
+            <circle key={x} cx={x} cy={16 + (i % 2) * 3} r="3" fill={['#ff9f1c', '#e85d4c', '#f0c33c', '#2f8f4e'][i % 4]} />
+          ))}
+          {/* Candle flames along eaves */}
+          {[35, 55, 75, 95, 115, 135, 155, 175].map((x) => (
+            <g key={x}>
+              <rect x={x - 1.5} y={36} width="3" height="8" fill="#f5e6c8" stroke="#1B2A4A" strokeWidth="0.6" />
+              <ellipse cx={x} cy={34} rx="2.2" ry="3.5" fill="#ffb347" />
+            </g>
+          ))}
         </svg>
       )
-    case 'gingerbread':
+    case 'shogatsu':
       return (
-        <svg viewBox="0 0 200 54" className="block h-auto w-full" preserveAspectRatio="none">
-          <path d="M6 48 L100 4 L194 48 Z" fill="#5c2e14" stroke="#f5e6c8" strokeWidth="3" strokeLinejoin="round" />
-          <path d="M22 46 L100 14 L178 46 Z" fill="#7a3e1a" />
-          {/* Icing drip along eaves */}
+        <svg viewBox="0 0 200 56" className="block h-auto w-full" preserveAspectRatio="none">
+          <path d="M6 50 L100 6 L194 50 Z" fill="#f5f0e6" stroke="#c41e1e" strokeWidth="2.4" strokeLinejoin="round" />
+          <path d="M22 48 L100 16 L178 48 Z" fill="#ebe4d6" />
+          {/* Shimekazari rope across near the roof */}
           <path
-            d="M22 44 Q40 50 55 44 Q70 50 85 44 Q100 50 115 44 Q130 50 145 44 Q160 50 178 44"
+            d="M24 28 Q60 36 100 30 Q140 24 176 32"
             fill="none"
-            stroke="#f5e6c8"
-            strokeWidth="3.5"
+            stroke="#2F8F4E"
+            strokeWidth="5"
             strokeLinecap="round"
           />
-          {/* Candy dots on ridge */}
-          {[70, 85, 100, 115, 130].map((x, i) => (
-            <circle key={x} cx={x} cy={12 + (i % 2)} r="2.5" fill={i % 2 === 0 ? '#c41e1e' : '#2d6b3a'} />
+          <path
+            d="M24 28 Q60 36 100 30 Q140 24 176 32"
+            fill="none"
+            stroke="#FFF8F0"
+            strokeWidth="5"
+            strokeLinecap="round"
+            strokeDasharray="4 5"
+          />
+          {/* Shide zigzags */}
+          {[50, 80, 100, 120, 150].map((x) => (
+            <path
+              key={x}
+              d={`M${x} 30 l-3 5 3 5 -3 5 3 5`}
+              fill="none"
+              stroke="#FFF8F0"
+              strokeWidth="1.6"
+              strokeLinejoin="round"
+            />
           ))}
-          <path d="M100 4 L100 12" stroke="#f5e6c8" strokeWidth="2.5" />
+          {/* Bitter orange at center */}
+          <circle cx="100" cy="28" r="6" fill="#E8782A" stroke="#1B2A4A" strokeWidth="1.4" />
+          <path d="M100 22c0-3 2-4 3-4" stroke="#2F8F4E" strokeWidth="1.6" strokeLinecap="round" />
         </svg>
       )
     case 'brassKeys':
@@ -308,23 +329,26 @@ function StallAwning({ variant }: { variant: StallVariantId }) {
       background: 'repeating-linear-gradient(90deg, #c41e1e 0 14px, #f5fafc 14px 28px)',
       border: 'rgba(212,180,92,0.4)',
     },
-    timber: null, // no fabric awning — timber eaves only
-    bavarian: {
-      background: 'repeating-linear-gradient(90deg, #1e3a6e 0 12px, #f5fafc 12px 24px)',
-      border: 'rgba(90,50,30,0.4)',
+    nye: {
+      background: 'repeating-linear-gradient(90deg, #1a1040 0 10px, #f0c33c 10px 20px)',
+      border: 'rgba(240,195,60,0.55)',
+    },
+    cny: {
+      background: 'repeating-linear-gradient(90deg, #c41e1e 0 12px, #f0c33c 12px 24px)',
+      border: 'rgba(240,195,60,0.55)',
     },
     redShingles: {
       background: 'repeating-linear-gradient(90deg, #8b1a1a 0 10px, #f5e6c8 10px 20px)',
       border: 'rgba(180,50,40,0.45)',
     },
     stone: null,
-    slateSnow: {
-      background: 'repeating-linear-gradient(90deg, #3d7a4a 0 12px, #f5fafc 12px 24px)',
-      border: 'rgba(70,120,90,0.5)',
+    diwali: {
+      background: 'repeating-linear-gradient(90deg, #7a2a9a 0 8px, #ff9f1c 8px 16px, #e85d4c 16px 24px)',
+      border: 'rgba(255,160,40,0.55)',
     },
-    gingerbread: {
-      background: 'repeating-linear-gradient(90deg, #c41e1e 0 10px, #f5e6c8 10px 20px)',
-      border: 'rgba(245,230,200,0.5)',
+    shogatsu: {
+      background: 'repeating-linear-gradient(90deg, #c41e1e 0 14px, #f5f0e6 14px 28px)',
+      border: 'rgba(180,40,40,0.45)',
     },
     brassKeys: {
       background: 'repeating-linear-gradient(90deg, #8a6a28 0 12px, #f0c33c 12px 24px)',
@@ -345,38 +369,35 @@ function StallAwning({ variant }: { variant: StallVariantId }) {
 
 function StallBodyDecor({ variant, unlocked }: { variant: StallVariantId; unlocked: boolean }) {
   switch (variant) {
-    case 'timber':
+    case 'nye':
       return (
         <div
-          className="pointer-events-none absolute inset-0 rounded-b-xl opacity-[0.28]"
+          className="pointer-events-none absolute inset-0 rounded-b-xl opacity-40"
           aria-hidden
           style={{
             backgroundImage:
-              'repeating-linear-gradient(180deg, transparent 0 11px, rgba(0,0,0,0.5) 11px 12px)',
+              'radial-gradient(circle at 20% 30%, rgba(240,195,60,0.35), transparent 35%), radial-gradient(circle at 80% 20%, rgba(126,200,227,0.3), transparent 30%), radial-gradient(circle at 50% 80%, rgba(232,93,76,0.25), transparent 40%)',
           }}
         />
       )
-    case 'bavarian':
+    case 'cny':
       return (
         <>
-          {/* Half-timber beams */}
-          <div className="pointer-events-none absolute inset-0 rounded-b-xl" aria-hidden>
-            <div className="absolute inset-y-0 left-[18%] w-[3px] bg-[#3d1a0e]/55" />
-            <div className="absolute inset-y-0 right-[18%] w-[3px] bg-[#3d1a0e]/55" />
-            <div className="absolute inset-x-0 top-[42%] h-[3px] bg-[#3d1a0e]/45" />
-            <div className="absolute left-[18%] top-0 h-[42%] w-[64%] border-b-[3px] border-[#3d1a0e]/35" />
+          <span className="pointer-events-none absolute left-2 top-2 text-[11px] text-gold" aria-hidden>
+            福
+          </span>
+          <span className="pointer-events-none absolute right-2 top-2 text-[11px] text-gold" aria-hidden>
+            福
+          </span>
+          <div className="pointer-events-none absolute inset-x-2 bottom-1.5 flex justify-center gap-1" aria-hidden>
+            {[0, 1, 2].map((i) => (
+              <span
+                key={i}
+                className="inline-block h-3 w-2.5 rounded-b-full border border-[#1B2A4A]/40"
+                style={{ background: i === 1 ? '#f0c33c' : '#c41e1e' }}
+              />
+            ))}
           </div>
-          {/* Painted shutters hint */}
-          <div
-            className="pointer-events-none absolute bottom-2 left-2 h-5 w-3 rounded-sm border border-[#3d1a0e]/40"
-            style={{ background: 'linear-gradient(90deg, #1e3a6e 0 45%, #f5fafc 45% 55%, #1e3a6e 55%)' }}
-            aria-hidden
-          />
-          <div
-            className="pointer-events-none absolute bottom-2 right-2 h-5 w-3 rounded-sm border border-[#3d1a0e]/40"
-            style={{ background: 'linear-gradient(90deg, #1e3a6e 0 45%, #f5fafc 45% 55%, #1e3a6e 55%)' }}
-            aria-hidden
-          />
         </>
       )
     case 'stone':
@@ -394,35 +415,44 @@ function StallBodyDecor({ variant, unlocked }: { variant: StallVariantId; unlock
           }}
         />
       )
-    case 'slateSnow':
+    case 'diwali':
       return (
         <>
           <div
-            className="pointer-events-none absolute bottom-2 left-2 h-5 w-2.5 rounded-sm"
-            style={{ background: unlocked ? '#3d7a4a' : '#2a5a38' }}
+            className="pointer-events-none absolute inset-0 rounded-b-xl opacity-50"
             aria-hidden
+            style={{
+              backgroundImage:
+                'radial-gradient(circle at 15% 80%, rgba(255,179,71,0.55), transparent 25%), radial-gradient(circle at 50% 85%, rgba(255,159,28,0.45), transparent 28%), radial-gradient(circle at 85% 80%, rgba(232,93,76,0.4), transparent 25%)',
+            }}
           />
-          <div
-            className="pointer-events-none absolute bottom-2 right-2 h-5 w-2.5 rounded-sm"
-            style={{ background: unlocked ? '#3d7a4a' : '#2a5a38' }}
-            aria-hidden
-          />
+          <div className="pointer-events-none absolute inset-x-2 bottom-1.5 flex justify-between" aria-hidden>
+            {Array.from({ length: 7 }, (_, i) => (
+              <span
+                key={i}
+                className="inline-block w-1.5 rounded-sm bg-[#f5e6c8]"
+                style={{ height: unlocked ? 10 + (i % 3) * 2 : 8 }}
+              />
+            ))}
+          </div>
         </>
       )
-    case 'gingerbread':
+    case 'shogatsu':
       return (
         <>
-          {/* Icing corner swirls */}
-          <span
-            className="pointer-events-none absolute left-1.5 top-1.5 h-2 w-2 rounded-full bg-[#f5e6c8]/80"
-            aria-hidden
-          />
-          <span
-            className="pointer-events-none absolute right-1.5 top-1.5 h-2 w-2 rounded-full bg-[#f5e6c8]/80"
-            aria-hidden
-          />
           <div
-            className="pointer-events-none absolute inset-x-3 bottom-1.5 h-1 rounded-full bg-[#f5e6c8]/35"
+            className="pointer-events-none absolute inset-x-3 top-1 h-1.5 rounded-full"
+            style={{
+              background: 'repeating-linear-gradient(90deg, #2F8F4E 0 6px, #FFF8F0 6px 10px)',
+            }}
+            aria-hidden
+          />
+          <span
+            className="pointer-events-none absolute left-1.5 top-1.5 h-2 w-2 rounded-full bg-[#c41e1e]/70"
+            aria-hidden
+          />
+          <span
+            className="pointer-events-none absolute right-1.5 top-1.5 h-2 w-2 rounded-full bg-[#c41e1e]/70"
             aria-hidden
           />
         </>
@@ -473,8 +503,7 @@ function StallBodyDecor({ variant, unlocked }: { variant: StallVariantId; unlock
 }
 
 function textClasses(variant: StallVariantId): { title: string; owners: string; locked: string } {
-  // Bavarian cream body needs dark text for readability
-  if (variant === 'bavarian') {
+  if (variant === 'shogatsu') {
     return {
       title: 'text-[#2a1810] group-hover:text-[#6b1e1e]',
       owners: 'text-[#3d2817]/80',
@@ -502,23 +531,23 @@ const shopGinger = '#C48A4A'
 type ShopkeeperId =
   | 'ghost'
   | 'mrsClaus'
-  | 'bavarian'
+  | 'nyeParty'
   | 'nutcracker'
-  | 'angel'
+  | 'sheepGoat'
   | 'elf'
-  | 'reindeer'
-  | 'gingerbread'
+  | 'diwaliHost'
+  | 'kimono'
   | 'diana'
 
 export const shopkeeperByStation: Record<string, ShopkeeperId> = {
   ghostwriter: 'ghost',
   myorders: 'mrsClaus',
-  gap: 'bavarian',
+  gap: 'nyeParty',
   forge: 'nutcracker',
-  orbit: 'angel',
+  orbit: 'sheepGoat',
   llm: 'elf',
-  pilot: 'reindeer',
-  elevit: 'gingerbread',
+  pilot: 'diwaliHost',
+  elevit: 'kimono',
   keys: 'diana',
 }
 
@@ -638,43 +667,33 @@ function ShopkeeperSvg({ id }: { id: ShopkeeperId }) {
           <circle cx="42" cy="36" r="2" fill={shopGold} stroke={shopInk} strokeWidth="1.2" />
         </svg>
       )
-    case 'bavarian':
+    case 'nyeParty':
       return (
         <svg {...common}>
           <StallCounter />
           <RestingArms />
-          <ellipse cx="42" cy="10" rx="11" ry="4" fill="#2A3A5C" stroke={shopInk} strokeWidth="2" />
-          <path
-            d="M31 10c0-6 5-10 11-10s11 4 11 10"
-            fill="#3A4A6C"
-            stroke={shopInk}
-            strokeWidth="2"
-            strokeLinejoin="round"
-          />
-          <circle cx="50" cy="8" r="2.2" fill={shopGold} stroke={shopInk} strokeWidth="1.3" />
-          <circle cx="42" cy="18" r="7.5" fill={shopSkin} stroke={shopInk} strokeWidth="2" />
-          <ellipse cx="39" cy="17.5" rx="1.3" ry="1.6" fill={shopInk} />
-          <ellipse cx="45" cy="17.5" rx="1.3" ry="1.6" fill={shopInk} />
-          <path d="M39.5 22c1.2 1.3 3.8 1.3 5 0" stroke={shopInk} strokeWidth="1.6" strokeLinecap="round" />
-          <ellipse cx="36" cy="20" rx="1.7" ry="1" fill={shopPink} opacity="0.85" />
-          <ellipse cx="48" cy="20" rx="1.7" ry="1" fill={shopPink} opacity="0.85" />
-          <path
-            d="M36 24c2-2 5-2 6-1 1-1 4-1 6 1"
-            fill="none"
-            stroke={shopInk}
-            strokeWidth="1.8"
-            strokeLinecap="round"
-          />
+          {/* Party hat */}
+          <path d="M42 2 L52 18 L32 18 Z" fill="#7EC8E3" stroke={shopInk} strokeWidth="2" strokeLinejoin="round" />
+          <circle cx="42" cy="3" r="2.5" fill={shopGold} stroke={shopInk} strokeWidth="1.4" />
+          <path d="M32 18h20" stroke={shopRed} strokeWidth="3" strokeLinecap="round" />
+          <circle cx="42" cy="20" r="8" fill={shopSkin} stroke={shopInk} strokeWidth="2" />
+          <ellipse cx="39" cy="19.5" rx="1.3" ry="1.6" fill={shopInk} />
+          <ellipse cx="45" cy="19.5" rx="1.3" ry="1.6" fill={shopInk} />
+          <path d="M39.5 24c1.2 1.2 3.8 1.2 5 0" stroke={shopInk} strokeWidth="1.6" strokeLinecap="round" />
+          <ellipse cx="36" cy="22" rx="1.7" ry="1" fill={shopPink} opacity="0.9" />
+          <ellipse cx="48" cy="22" rx="1.7" ry="1" fill={shopPink} opacity="0.9" />
+          {/* Tuxedo / sparkly jacket */}
           <path
             d="M32 28c2-3.5 6-5.5 10-5.5s8 2 10 5.5v16H32V28z"
-            fill="#5C3D1E"
+            fill="#1B2A4A"
             stroke={shopInk}
             strokeWidth="2"
             strokeLinejoin="round"
           />
-          <path d="M36 30h12v4H36z" fill="#1E3A6E" stroke={shopInk} strokeWidth="1.4" />
-          <path d="M42 34v10" stroke={shopGold} strokeWidth="2" strokeLinecap="round" />
-          <circle cx="42" cy="36" r="1.5" fill={shopGold} stroke={shopInk} strokeWidth="1" />
+          <path d="M40 28v16M44 28v16" stroke={shopCream} strokeWidth="1.5" />
+          <path d="M42 28 L38 34 L42 33 L46 34 Z" fill={shopRed} stroke={shopInk} strokeWidth="1.2" />
+          <circle cx="36" cy="32" r="1.2" fill={shopGold} />
+          <circle cx="48" cy="34" r="1.2" fill={shopGold} />
         </svg>
       )
     case 'nutcracker':
@@ -700,47 +719,35 @@ function ShopkeeperSvg({ id }: { id: ShopkeeperId }) {
           <path d="M42 30v10" stroke={shopInk} strokeWidth="1.2" />
         </svg>
       )
-    case 'angel':
+    case 'sheepGoat':
       return (
         <svg {...common}>
           <StallCounter />
-          <ellipse
-            cx="22"
-            cy="28"
-            rx="9"
-            ry="13"
-            fill={shopCream}
-            stroke={shopInk}
-            strokeWidth="2"
-            transform="rotate(-18 22 28)"
-          />
-          <ellipse
-            cx="62"
-            cy="28"
-            rx="9"
-            ry="13"
-            fill={shopCream}
-            stroke={shopInk}
-            strokeWidth="2"
-            transform="rotate(18 62 28)"
-          />
-          <RestingArms />
-          <ellipse cx="42" cy="6" rx="8" ry="3" fill="none" stroke={shopGold} strokeWidth="2.2" />
-          <circle cx="42" cy="14" r="8" fill="#F5D76E" stroke={shopInk} strokeWidth="2" />
-          <circle cx="42" cy="16" r="7" fill={shopSkin} stroke={shopInk} strokeWidth="2" />
-          <ellipse cx="39" cy="15.5" rx="1.2" ry="1.5" fill={shopInk} />
-          <ellipse cx="45" cy="15.5" rx="1.2" ry="1.5" fill={shopInk} />
-          <path d="M39.5 20c1.2 1.2 3.8 1.2 5 0" stroke={shopInk} strokeWidth="1.5" strokeLinecap="round" />
-          <ellipse cx="36.5" cy="18.5" rx="1.6" ry="1" fill={shopPink} opacity="0.85" />
-          <ellipse cx="47.5" cy="18.5" rx="1.6" ry="1" fill={shopPink} opacity="0.85" />
+          <RestingArms fill="#E8E0D4" />
+          {/* Horns */}
+          <path d="M32 14c-6-8-10-4-8 0" fill="none" stroke={shopBrown} strokeWidth="2.4" strokeLinecap="round" />
+          <path d="M52 14c6-8 10-4 8 0" fill="none" stroke={shopBrown} strokeWidth="2.4" strokeLinecap="round" />
+          {/* Fluffy head */}
+          <circle cx="36" cy="16" r="4" fill="#E8E0D4" stroke={shopInk} strokeWidth="1.6" />
+          <circle cx="48" cy="16" r="4" fill="#E8E0D4" stroke={shopInk} strokeWidth="1.6" />
+          <circle cx="42" cy="14" r="4" fill="#E8E0D4" stroke={shopInk} strokeWidth="1.6" />
+          <ellipse cx="42" cy="22" rx="11" ry="10" fill="#E8E0D4" stroke={shopInk} strokeWidth="2" />
+          <ellipse cx="38" cy="21" rx="1.5" ry="1.8" fill={shopInk} />
+          <ellipse cx="46" cy="21" rx="1.5" ry="1.8" fill={shopInk} />
+          <ellipse cx="42" cy="26" rx="4" ry="3" fill="#F2C9A8" stroke={shopInk} strokeWidth="1.4" />
+          <path d="M40 27c1 .7 3 .7 4 0" stroke={shopInk} strokeWidth="1.2" strokeLinecap="round" />
+          {/* Red CNY scarf / body */}
           <path
-            d="M32 26c2-3 6-5 10-5s8 2 10 5v18H32V26z"
-            fill="#B8D9F0"
+            d="M31 34c2-2.5 6-4 11-4s9 1.5 11 4v10H31V34z"
+            fill={shopRed}
             stroke={shopInk}
             strokeWidth="2"
             strokeLinejoin="round"
           />
-          <path d="M42 26v18" stroke={shopGold} strokeWidth="1.8" opacity="0.7" />
+          <path d="M31 36h22" stroke={shopGold} strokeWidth="3" strokeLinecap="round" />
+          <text x="42" y="43" textAnchor="middle" fontSize="5" fill={shopGold} fontWeight="700">
+            福
+          </text>
         </svg>
       )
     case 'elf':
@@ -790,91 +797,69 @@ function ShopkeeperSvg({ id }: { id: ShopkeeperId }) {
           <path d="M66 38h3v4h-3" fill="none" stroke={shopInk} strokeWidth="1.5" strokeLinecap="round" />
         </svg>
       )
-    case 'reindeer':
+    case 'diwaliHost':
       return (
         <svg {...common}>
           <StallCounter />
-          <RestingArms fill={shopGinger} />
+          <RestingArms />
+          {/* Colorful turban / festive headwrap */}
           <path
-            d="M32 12c-4-8-8-6-6-2m6 2c2-6 0-10-4-8"
-            fill="none"
-            stroke={shopBrown}
-            strokeWidth="2.2"
-            strokeLinecap="round"
-          />
-          <path
-            d="M52 12c4-8 8-6 6-2m-6 2c-2-6 0-10 4-8"
-            fill="none"
-            stroke={shopBrown}
-            strokeWidth="2.2"
-            strokeLinecap="round"
-          />
-          <ellipse cx="30" cy="18" rx="4" ry="5" fill={shopGinger} stroke={shopInk} strokeWidth="1.8" />
-          <ellipse cx="54" cy="18" rx="4" ry="5" fill={shopGinger} stroke={shopInk} strokeWidth="1.8" />
-          <ellipse cx="42" cy="22" rx="11" ry="10" fill={shopGinger} stroke={shopInk} strokeWidth="2" />
-          <ellipse cx="38" cy="20" rx="1.5" ry="1.8" fill={shopInk} />
-          <ellipse cx="46" cy="20" rx="1.5" ry="1.8" fill={shopInk} />
-          <ellipse cx="42" cy="26" rx="5" ry="4" fill="#E8C9A0" stroke={shopInk} strokeWidth="1.6" />
-          <circle cx="42" cy="25" r="2.2" fill={shopRed} stroke={shopInk} strokeWidth="1.4" />
-          <path d="M40 28c1 .8 3 .8 4 0" stroke={shopInk} strokeWidth="1.3" strokeLinecap="round" />
-          <path
-            d="M31 34c2-2.5 6-4 11-4s9 1.5 11 4v10H31V34z"
-            fill={shopGreen}
+            d="M30 14c0-6 5-10 12-10s12 4 12 10c-3-1-7-2-12-2s-9 1-12 2z"
+            fill="#7A2A9A"
             stroke={shopInk}
             strokeWidth="2"
             strokeLinejoin="round"
           />
-          <path d="M31 36h22" stroke={shopRed} strokeWidth="3" strokeLinecap="round" />
+          <path d="M30 14h24" stroke="#FF9F1C" strokeWidth="2.5" strokeLinecap="round" />
+          <circle cx="54" cy="12" r="2.5" fill={shopGold} stroke={shopInk} strokeWidth="1.3" />
+          <circle cx="42" cy="20" r="8" fill={shopSkin} stroke={shopInk} strokeWidth="2" />
+          <ellipse cx="39" cy="19.5" rx="1.3" ry="1.6" fill={shopInk} />
+          <ellipse cx="45" cy="19.5" rx="1.3" ry="1.6" fill={shopInk} />
+          <path d="M39.5 24c1.2 1.2 3.8 1.2 5 0" stroke={shopInk} strokeWidth="1.6" strokeLinecap="round" />
+          <ellipse cx="36" cy="22" rx="1.7" ry="1" fill={shopPink} opacity="0.9" />
+          <ellipse cx="48" cy="22" rx="1.7" ry="1" fill={shopPink} opacity="0.9" />
+          {/* Bright festive kurta */}
+          <path
+            d="M32 28c2-3.5 6-5.5 10-5.5s8 2 10 5.5v16H32V28z"
+            fill="#E85D4C"
+            stroke={shopInk}
+            strokeWidth="2"
+            strokeLinejoin="round"
+          />
+          <path d="M36 30h12v3H36z" fill="#FF9F1C" stroke={shopInk} strokeWidth="1.2" />
+          <circle cx="42" cy="36" r="2" fill={shopGold} stroke={shopInk} strokeWidth="1.2" />
+          {/* Diya on counter */}
+          <ellipse cx="62" cy="42" rx="5" ry="2.5" fill="#E8A838" stroke={shopInk} strokeWidth="1.3" />
+          <ellipse cx="62" cy="38" rx="2" ry="3" fill="#FFB347" stroke={shopInk} strokeWidth="1.1" />
         </svg>
       )
-    case 'gingerbread':
+    case 'kimono':
       return (
         <svg {...common}>
           <StallCounter />
-          {/* Left arm on counter */}
+          <RestingArms />
+          {/* Hair with ornament */}
+          <circle cx="42" cy="12" r="9" fill="#1B2A4A" stroke={shopInk} strokeWidth="2" />
+          <circle cx="50" cy="10" r="3" fill={shopRed} stroke={shopInk} strokeWidth="1.4" />
+          <circle cx="42" cy="18" r="7.5" fill={shopSkin} stroke={shopInk} strokeWidth="2" />
+          <ellipse cx="39" cy="17.5" rx="1.2" ry="1.5" fill={shopInk} />
+          <ellipse cx="45" cy="17.5" rx="1.2" ry="1.5" fill={shopInk} />
+          <path d="M39.5 22c1.2 1.1 3.8 1.1 5 0" stroke={shopInk} strokeWidth="1.5" strokeLinecap="round" />
+          <ellipse cx="36.5" cy="20" rx="1.6" ry="1" fill={shopPink} opacity="0.9" />
+          <ellipse cx="47.5" cy="20" rx="1.6" ry="1" fill={shopPink} opacity="0.9" />
+          {/* Kimono / yukata with collar V */}
           <path
-            d="M42 30 C28 30 16 34 8 42 L10 45 C18 38 30 36 42 36 Z"
-            fill={shopGinger}
+            d="M30 28c2-3 6-5 12-5s10 2 12 5v16H30V28z"
+            fill="#2F6B8F"
             stroke={shopInk}
-            strokeWidth="2.2"
-            strokeLinejoin="round"
-          />
-          <ellipse cx="9" cy="44" rx="5" ry="3" fill={shopGinger} stroke={shopInk} strokeWidth="2" />
-          <path d="M12 42c8-4 20-6 30-6" stroke={shopCream} strokeWidth="2" strokeLinecap="round" fill="none" />
-          {/* Right arm waves on hover */}
-          <g className="shopkeeper-wave-arm">
-            <path
-              d="M42 30 C56 30 68 34 76 42 L74 45 C66 38 54 36 42 36 Z"
-              fill={shopGinger}
-              stroke={shopInk}
-              strokeWidth="2.2"
-              strokeLinejoin="round"
-            />
-            <ellipse cx="75" cy="44" rx="5" ry="3" fill={shopGinger} stroke={shopInk} strokeWidth="2" />
-            <path d="M42 36c10 0 22 2 30 6" stroke={shopCream} strokeWidth="2" strokeLinecap="round" fill="none" />
-          </g>
-          <circle cx="42" cy="12" r="9" fill={shopGinger} stroke={shopInk} strokeWidth="2.2" />
-          <circle cx="38.5" cy="10.5" r="1.6" fill={shopInk} />
-          <circle cx="45.5" cy="10.5" r="1.6" fill={shopInk} />
-          <path
-            d="M37.5 15c1.5 2 5.5 2 7 0"
-            fill="none"
-            stroke={shopCream}
             strokeWidth="2"
-            strokeLinecap="round"
-          />
-          <circle cx="35" cy="13" r="1.5" fill={shopPink} opacity="0.9" />
-          <circle cx="49" cy="13" r="1.5" fill={shopPink} opacity="0.9" />
-          <path
-            d="M32 24c0-3 4.5-5 10-5s10 2 10 5v12c0 1-1 2-2 2H34c-1 0-2-1-2-2V24z"
-            fill={shopGinger}
-            stroke={shopInk}
-            strokeWidth="2.2"
             strokeLinejoin="round"
           />
-          <circle cx="42" cy="26" r="2" fill={shopRed} stroke={shopInk} strokeWidth="1.3" />
-          <circle cx="42" cy="31.5" r="2" fill={shopGreen} stroke={shopInk} strokeWidth="1.3" />
-          <path d="M34 24h16" stroke={shopCream} strokeWidth="2" strokeLinecap="round" />
+          <path d="M42 25 L36 44M42 25 L48 44" stroke={shopCream} strokeWidth="2.2" strokeLinejoin="round" />
+          <path d="M30 36h24" stroke={shopRed} strokeWidth="3.5" strokeLinecap="round" />
+          {/* Small daidai on counter */}
+          <circle cx="62" cy="40" r="4" fill="#E8782A" stroke={shopInk} strokeWidth="1.3" />
+          <path d="M62 36c0-2 1.5-3 2-3" stroke={shopGreen} strokeWidth="1.4" strokeLinecap="round" />
         </svg>
       )
     case 'diana':
@@ -882,41 +867,52 @@ function ShopkeeperSvg({ id }: { id: ShopkeeperId }) {
         <svg {...common}>
           <StallCounter />
           <RestingArms />
-          {/* Hair */}
+          {/* Long blonde hair — back layer behind shoulders */}
           <path
-            d="M30 8c0-5 5-8 12-8s12 3 12 8v10c-3-2-7-3-12-3s-9 1-12 3V8z"
-            fill="#3D2817"
+            d="M28 14c0-8 6-13 14-13s14 5 14 13v28c-3-2-8-3-14-3s-11 1-14 3V14z"
+            fill="#F0D28A"
             stroke={shopInk}
             strokeWidth="2"
             strokeLinejoin="round"
           />
-          <circle cx="42" cy="16" r="8" fill={shopSkin} stroke={shopInk} strokeWidth="2" />
-          <ellipse cx="39" cy="15.5" rx="1.3" ry="1.6" fill={shopInk} />
-          <ellipse cx="45" cy="15.5" rx="1.3" ry="1.6" fill={shopInk} />
-          <path d="M39.5 20c1.2 1.2 3.8 1.2 5 0" stroke={shopInk} strokeWidth="1.6" strokeLinecap="round" />
-          <ellipse cx="36" cy="18.5" rx="1.7" ry="1" fill={shopPink} opacity="0.9" />
-          <ellipse cx="48" cy="18.5" rx="1.7" ry="1" fill={shopPink} opacity="0.9" />
-          {/* Coat */}
           <path
-            d="M32 26c2-3 6-5 10-5s8 2 10 5v18H32V26z"
-            fill="#1E3A6E"
+            d="M28 22c2 8 3 16 2 22M56 22c-2 8-3 16-2 22"
+            stroke="#E8C46A"
+            strokeWidth="2"
+            strokeLinecap="round"
+            opacity="0.7"
+          />
+          {/* Face */}
+          <circle cx="42" cy="18" r="8" fill={shopSkin} stroke={shopInk} strokeWidth="2" />
+          {/* Blue eyes */}
+          <ellipse cx="39" cy="17.5" rx="1.5" ry="1.8" fill="#4A90D9" stroke={shopInk} strokeWidth="1.1" />
+          <ellipse cx="45" cy="17.5" rx="1.5" ry="1.8" fill="#4A90D9" stroke={shopInk} strokeWidth="1.1" />
+          <circle cx="39.4" cy="17" r="0.55" fill={shopCream} />
+          <circle cx="45.4" cy="17" r="0.55" fill={shopCream} />
+          <path d="M39.5 22c1.2 1.2 3.8 1.2 5 0" stroke={shopInk} strokeWidth="1.6" strokeLinecap="round" />
+          <ellipse cx="36" cy="20" rx="1.7" ry="1" fill={shopPink} opacity="0.9" />
+          <ellipse cx="48" cy="20" rx="1.7" ry="1" fill={shopPink} opacity="0.9" />
+          {/* Bangs */}
+          <path
+            d="M34 12c2-3 5-4 8-4s6 1 8 4c-2 1-5 2-8 2s-6-1-8-2z"
+            fill="#F5DC9A"
+            stroke={shopInk}
+            strokeWidth="1.6"
+            strokeLinejoin="round"
+          />
+          {/* Holiday sweater */}
+          <path
+            d="M32 28c2-3 6-5 10-5s8 2 10 5v16H32V28z"
+            fill={shopRed}
             stroke={shopInk}
             strokeWidth="2"
             strokeLinejoin="round"
           />
-          {/* Name badge */}
-          <rect x="36" y="30" width="12" height="7" rx="1.2" fill={shopCream} stroke={shopInk} strokeWidth="1.4" />
-          <text
-            x="42"
-            y="35.2"
-            textAnchor="middle"
-            fontSize="4.2"
-            fontFamily="system-ui, sans-serif"
-            fontWeight="700"
-            fill={shopInk}
-          >
-            Diana
-          </text>
+          <path d="M32 32h20" stroke={shopGreen} strokeWidth="3.5" />
+          <path d="M32 36h20" stroke={shopCream} strokeWidth="2" />
+          <path d="M34 34h2M38 34h2M42 34h2M46 34h2M50 34h2" stroke={shopGold} strokeWidth="1.6" strokeLinecap="round" />
+          <path d="M36 38h12" stroke={shopGreen} strokeWidth="2.5" />
+          <circle cx="42" cy="40.5" r="1.6" fill={shopGold} stroke={shopInk} strokeWidth="1" />
           {/* Brass key on counter */}
           <circle cx="62" cy="40" r="3.2" fill={shopGold} stroke={shopInk} strokeWidth="1.4" />
           <circle cx="62" cy="40" r="1.3" fill={shopCream} />
@@ -928,7 +924,7 @@ function ShopkeeperSvg({ id }: { id: ShopkeeperId }) {
 }
 
 function StallShopkeeper({ stationId, completed }: { stationId: string; completed: boolean }) {
-  const id = shopkeeperByStation[stationId] ?? 'bavarian'
+  const id = shopkeeperByStation[stationId] ?? 'nyeParty'
   return (
     <div
       className={`relative z-[1] -mb-0.5 flex justify-center px-1 pt-0.5 transition ${
@@ -952,7 +948,7 @@ function StallShopkeeper({ stationId, completed }: { stationId: string; complete
 /** Clickable Weihnachtsmarkt stall card for the hub station grid.
  *  `unlocked` = team finished the stall challenge (`team.charms[stationId]`). */
 export function StallTile({ station, unlocked }: { station: Station; unlocked: boolean }) {
-  const variant = stallVariantByStation[station.id] ?? 'timber'
+  const variant = stallVariantByStation[station.id] ?? 'nye'
   const palette = palettes[variant]
   const text = textClasses(variant)
   const completed = unlocked
@@ -1004,7 +1000,7 @@ export function StallTile({ station, unlocked }: { station: Station; unlocked: b
           />
         )}
 
-        {variant !== 'gingerbread' && variant !== 'wreath' && variant !== 'bavarian' && (
+        {variant !== 'shogatsu' && variant !== 'wreath' && variant !== 'cny' && (
           <>
             <span
               className="pointer-events-none absolute left-1.5 top-1.5 h-1.5 w-1.5 rounded-full bg-gold/60"
@@ -1029,11 +1025,9 @@ export function StallTile({ station, unlocked }: { station: Station; unlocked: b
             completed ? 'text-gold' : text.locked
           }`}
           style={
-            completed && variant === 'bavarian'
+            completed && variant === 'shogatsu'
               ? { color: '#8b1a1a' }
-              : completed && variant === 'gingerbread'
-                ? { color: '#f5e6c8' }
-                : undefined
+              : undefined
           }
         >
           {completed ? (

@@ -394,5 +394,105 @@ export function CharmIcon({
           </g>
         </svg>
       )
+    case 'balldrop':
+      return (
+        <svg {...common}>
+          {/* Times Square–style New Year ball */}
+          <path d="M24 6v6" stroke={gold} strokeWidth="2.4" strokeLinecap="round" />
+          <path d="M18 8h12" stroke={gold} strokeWidth="2.2" strokeLinecap="round" />
+          <circle cx="24" cy="24" r="13" fill="#B8D9F0" stroke={ink} strokeWidth="2.8" />
+          <circle cx="24" cy="24" r="13" fill="none" stroke={gold} strokeWidth="1.6" opacity="0.7" />
+          {[0, 45, 90, 135].map((deg) => (
+            <path
+              key={deg}
+              d="M24 11.5 L24 36.5"
+              stroke={cream}
+              strokeWidth="1.4"
+              opacity="0.55"
+              transform={`rotate(${deg} 24 24)`}
+            />
+          ))}
+          <circle cx="24" cy="24" r="4" fill={gold} stroke={ink} strokeWidth="1.8" />
+          <circle cx="18" cy="18" r="1.6" fill={cream} />
+          <circle cx="30" cy="20" r="1.3" fill={cream} />
+          <circle cx="20" cy="30" r="1.2" fill={gold} />
+          <path d="M14 38h20v4H14z" fill={ink} stroke={gold} strokeWidth="1.8" strokeLinejoin="round" />
+          <path d="M16 40h16" stroke={gold} strokeWidth="1.2" />
+        </svg>
+      )
+    case 'fu':
+      return (
+        <svg {...common}>
+          {/* Chinese New Year 福 plaque */}
+          <rect x="8" y="7" width="32" height="34" rx="3" fill={red} stroke={ink} strokeWidth="2.8" />
+          <rect x="11" y="10" width="26" height="28" rx="2" fill="#C41E1E" stroke={gold} strokeWidth="1.6" />
+          <text
+            x="24"
+            y="31"
+            textAnchor="middle"
+            fontSize="18"
+            fontFamily="Georgia, 'Songti SC', 'SimSun', serif"
+            fontWeight="700"
+            fill={gold}
+          >
+            福
+          </text>
+          <circle cx="12" cy="12" r="1.4" fill={gold} />
+          <circle cx="36" cy="12" r="1.4" fill={gold} />
+          <circle cx="12" cy="36" r="1.4" fill={gold} />
+          <circle cx="36" cy="36" r="1.4" fill={gold} />
+        </svg>
+      )
+    case 'diya':
+      return (
+        <svg {...common}>
+          {/* Diwali oil lamp */}
+          <ellipse cx="24" cy="38" rx="14" ry="4" fill="#8B5A2B" stroke={ink} strokeWidth="2.2" opacity="0.45" />
+          <path
+            d="M10 30c2-8 8-14 14-14s12 6 14 14c-3 4-8 6-14 6s-11-2-14-6z"
+            fill="#E8A838"
+            stroke={ink}
+            strokeWidth="2.8"
+            strokeLinejoin="round"
+          />
+          <path
+            d="M14 28c2-5 6-9 10-9s8 4 10 9"
+            fill="#F0C33C"
+            stroke={ink}
+            strokeWidth="1.6"
+            strokeLinejoin="round"
+          />
+          <path
+            d="M22 18c0-6 2.5-10 4-12 2 3 3 7 2 12"
+            fill="#FFB347"
+            stroke={ink}
+            strokeWidth="2"
+            strokeLinejoin="round"
+          />
+          <path d="M24 16c0-4 1.2-7 2-8" fill="#FFF6D0" stroke={ink} strokeWidth="1.4" strokeLinejoin="round" />
+          <circle cx="16" cy="32" r="1.3" fill={red} />
+          <circle cx="32" cy="32" r="1.3" fill={green} />
+          <circle cx="24" cy="34" r="1.3" fill={gold} />
+        </svg>
+      )
+    case 'shimekazari':
+      return (
+        <svg {...common}>
+          {/* Japanese New Year shimekazari with bitter orange (daidai) */}
+          <path
+            d="M10 20c0-8 6-12 14-12s14 4 14 12c0 3-2 5-4 6H14c-2-1-4-3-4-6z"
+            fill={green}
+            stroke={ink}
+            strokeWidth="2.6"
+            strokeLinejoin="round"
+          />
+          <path d="M14 24c2 6 4 10 6 14M24 26c0 6 0 10 0 14M34 24c-2 6-4 10-6 14" stroke={cream} strokeWidth="2.2" strokeLinecap="round" />
+          <path d="M18 28l-3 6M30 28l3 6M22 30l-2 7M26 30l2 7" stroke={cream} strokeWidth="1.6" strokeLinecap="round" />
+          <circle cx="24" cy="18" r="7" fill="#E8782A" stroke={ink} strokeWidth="2.6" />
+          <circle cx="22" cy="16" r="2" fill="#F5D76E" opacity="0.8" />
+          <path d="M24 11c0-3 2-5 3-5" stroke={green} strokeWidth="2.2" strokeLinecap="round" />
+          <path d="M12 18h-4M36 18h4" stroke={gold} strokeWidth="2" strokeLinecap="round" />
+        </svg>
+      )
   }
 }

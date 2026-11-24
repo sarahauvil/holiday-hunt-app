@@ -72,16 +72,16 @@ export function Final() {
   return (
     <section className="relative flex min-h-screen w-full flex-1 items-end overflow-hidden md:items-center md:justify-end">
       <div className="pointer-events-none absolute inset-0" aria-hidden>
-        <div className="absolute inset-0 bg-[#1a100c]" />
-        <PaintedScene src="/images/leaderboard-santa.jpg" objectPosition="left center" />
-        {/* Soften right for the panel; leave lit fireplace & stockings open on the left */}
-        <div className="absolute inset-y-0 right-0 w-full bg-gradient-to-l from-[#0a1520]/93 via-[#0a1520]/45 to-transparent md:w-[58%]" />
+        <div className="absolute inset-0 bg-[#12161c]" />
+        <PaintedScene src="/images/final-hearth-cold.jpg" objectPosition="left center" />
+        {/* Soften right for the panel; leave the cold unlit hearth open on the left */}
+        <div className="absolute inset-y-0 right-0 w-full bg-gradient-to-l from-[#0a1520]/93 via-[#0a1520]/50 to-transparent md:w-[58%]" />
         <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-[#0a1520] to-transparent md:h-32" />
         <div className="absolute inset-x-0 top-0 h-28 bg-gradient-to-b from-[#0a1520]/80 to-transparent" />
       </div>
 
       <motion.div
-        className="relative z-10 mb-10 ml-5 mr-5 w-full max-w-xl rounded-3xl border border-gold/30 bg-[#0a1520]/88 px-6 py-8 shadow-2xl backdrop-blur-md md:mb-0 md:ml-auto md:mr-10 md:max-w-lg md:px-8 md:py-9 lg:mr-16 lg:max-w-xl"
+        className="relative z-10 mb-10 ml-5 mr-5 w-full max-w-xl rounded-3xl border border-snow/20 bg-[#0a1520]/88 px-6 py-8 shadow-2xl backdrop-blur-md md:mb-0 md:ml-auto md:mr-10 md:max-w-lg md:px-8 md:py-9 lg:mr-16 lg:max-w-xl"
         initial={{ opacity: 0, y: 24 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.7 }}
